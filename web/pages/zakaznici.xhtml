@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Petr" />
+    <link rel="icon" href="../../favicon.ico" />
+
+    <title>Aplikace JSF</title>
+    <link href="../css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+      <div id="mainmenu">
+          <ul>
+              <li>
+                  <a href="bootstraphome.xhtml">Menu1</a>
+              </li>
+              <li>
+                  <a href="#">Menu2</a>
+              </li>
+              <li>
+                  <a href="#">Menu3</a>
+              </li>
+          </ul>
+      </div>
+      <div id="content">
+          <h1>Osoby</h1>
+          <h2>Tabulka zákazníků z MS SQL</h2>
+          <h:dataTable value="#{dbBeanMS.zakaznici}" var="z">
+              <h:column>
+                  <f:facet name="header">Id:</f:facet>
+                  #{z.IDZakaznik}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Jméno:</f:facet>
+                  #{z.jmeno}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Příjmení:</f:facet>
+                  #{z.prijmeni}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Město:</f:facet>
+                  #{z.mesto}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Ulice:</f:facet>
+                  #{z.ulice}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Telefon:</f:facet>
+                  #{z.telefon}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Email:</f:facet>
+                  #{z.email}
+              </h:column>
+          </h:dataTable>
+      </div>
+  </body>
+</html>
+
