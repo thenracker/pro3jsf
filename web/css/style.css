@@ -7,10 +7,6 @@ body{
     height: 50px;
     background-color: black;
 }
-#mainmenu.admin{
-    background-color: maroon; color: white;
-    /*To je jen kvůli barvě hlavního menu pro admina*/
-}
 #mainmenu ul{
     margin: 0 auto 0 auto;
     padding: 0;
