@@ -11,32 +11,33 @@
     <meta name="author" content="Petr" />
     <link rel="icon" href="../../favicon.ico" />
 
-    <title>Přihlásit se</title>
-    <link href="../css/style.css" rel="stylesheet" />
+    <title>Uživatelé</title>
+    <link href="../../css/style.css" rel="stylesheet" />
   </head>
   <body>
-      <div id="mainmenu">
+      #{permitController.hasPermission()}
+      <div id="mainmenu" class="admin">
           <ul>
               <li>
-                  <a href="home.xhtml">Úvodní stránka</a>
+                  <a href="uzivatele.xhtml">Uživatelé</a>
               </li>
               <li>
-                  <a href="signin.xhtml">Přihlásit se</a>
+                  <a href="jidla.xhtml">Jídla</a>
+              </li>
+              <li>
+                  <a href="#">Jídelníček</a>
+              </li>
+              <li>
+                  <a href="#">Uživatel</a>
+                  <ul>
+                      <li><a href="#">Odhlásit se</a></li>
+                      <li><a href="#">Profil?</a></li>
+                  </ul>
               </li>
           </ul>
       </div>
       <div id="content">
-          <h:form>
-            <h:messages style="color: red"></h:messages>
-            
-            <p>Email:</p>
-            <h:inputText id="un" required="true" value="#{userController.username}" converterMessage="Zadejte přihlašovací jméno" />
-            <p>Heslo:</p>
-            <h:inputSecret id="pw" required="true" value="#{userController.password}" converterMessage="Zadejte heslo" />
-            
-            <h:commandButton value="Odeslat" action="#{userController.logInRequest}" />
-
-        </h:form>
+          <h1>Adminova domovská stránka</h1>
       </div>
   </body>
 </html>
