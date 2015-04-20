@@ -50,9 +50,9 @@ public class UserController {
         try {
             //přesměrujeme do uživatelské sekce pokud jde o usera
             if(user.getIDFunkce() == 2)
-                FacesContext.getCurrentInstance().getExternalContext().redirect("../user/index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("./user/index.xhtml");
             else
-                FacesContext.getCurrentInstance().getExternalContext().redirect("../admin/index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("./admin/index.xhtml");
         } 
         catch (IOException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
