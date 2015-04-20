@@ -11,22 +11,53 @@
     <meta name="author" content="Petr" />
     <link rel="icon" href="../../favicon.ico" />
 
-    <title>Uživatelé</title>
-    <link href="../css/style.css" rel="stylesheet" />
+    <title>Aplikace JSF</title>
+    <link href="css/style.css" rel="stylesheet" />
   </head>
   <body>
       <div id="mainmenu">
           <ul>
               <li>
-                  <a href="home.xhtml">Úvodní stránka</a>
+                  <a href="#">Menu1</a>
               </li>
               <li>
-                  <a href="signin.xhtml">Přihlásit se</a>
+                  <a href="#">Menu2</a>
+              </li>
+              <li>
+                  <a href="#">Menu3</a>
               </li>
           </ul>
       </div>
       <div id="content">
-          <h1>Úvodní stránka</h1>
+          <h1>Osoby</h1>
+          <h2>Test připojení</h2>
+            <h:form>
+                <h:commandButton value="Napojit na databázi" action="#{dbBean.connect()}" />
+            </h:form>
+            <p style="font-size: 2em;">
+                <h:outputText value="#{dbBean.success}" />
+            </p>
+          <h2>Seznam osob</h2>
+          <h:dataTable value="#{dbBean.osoby}" var="o">
+              <h:column>
+                  <f:facet name="header">Id:</f:facet>
+                  #{o.ID}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Jméno:</f:facet>
+                  #{o.JMENO}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Příjmení:</f:facet>
+                  #{o.PRIJMENI}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Adresa:</f:facet>
+                  #{o.ADRESA}
+              </h:column>
+          </h:dataTable>
+          
+          
       </div>
   </body>
 </html>
