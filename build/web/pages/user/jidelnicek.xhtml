@@ -37,48 +37,44 @@
           </ul>
       </div>
       <div id="content">
-          <h1>Jídla</h1>
-          <h2>Funkce</h2>
-          <p>
-              <a href="addjidlo.xhtml">Přidat jídlo do databáze</a><br />
-              <a href="#">Zapsat jídlo do jídelníčku</a>
-          </p>
-          <h2>Tabulka jídel</h2>
-          <h:dataTable value="#{jidloBean.jidla}" var="j">
+          <h1>Jídelníček uživatele #{userController.username}</h1>
+          <h2>Výběr dne:</h2>
+          <h:form>
+              <input id="dateInput" type="date" label="Datum" />
+              <h:inputHidden id="dateJsf" value="#{jidelnicekBean.stringDatum}" />
+              <h:commandButton value="Zvolit datum" action="#{jidelnicekBean.ulozDatum()}"/> <!--TO DO-->
+          </h:form>
+          
+          <!-- NÁDHERNEJ ZPŮSOB, JAK PŘEVÍST DATEINPUT DO JSFINPUTU -_- -->
+          <script type="text/javascript">
+            document.getElementById('dateInput').addEventListener('change', function(){
+            document.getElementById('j_idt2:dateJsf').value = document.getElementById('dateInput').value;
+            });
+          </script>
+          
+          <p id="test"></p>
+          
+          <h2>Jídelníček</h2>
+          <h:dataTable value="#{jidelnicekBean.jidelnicekUzivatele}" var="j">
               <h:column>
                   <f:facet name="header">Název</f:facet>
-                  #{j.nazev}
+                  #{j.jidloDao.nazev}
               </h:column>
               <h:column>
-                  <f:facet name="header">Váha (g)</f:facet>
-                  #{j.vahaGramy}
+                  <f:facet name="header">Kcal</f:facet>
+                  #{j.jidloDao.kcal}
               </h:column>
               <h:column>
-                  <f:facet name="header">Bílkoviny (g)</f:facet>
-                  #{j.bilkoviny}
+                  <f:facet name="header">Typ</f:facet>
+                  #{j.typ}
               </h:column>
               <h:column>
-                  <f:facet name="header">Tuky (g)</f:facet>
-                  #{j.tuky}
+                  <f:facet name="header">Čas</f:facet>
+                  #{j.cas}
               </h:column>
               <h:column>
-                  <f:facet name="header">Sacharidy (g)</f:facet>
-                  #{j.sacharidy}
-              </h:column>
-              <h:column>
-                  <f:facet name="header">Cukry (g)</f:facet>
-                  #{j.cukry}
-              </h:column>
-              <h:column>
-                  <f:facet name="header">kCal</f:facet>
-                  #{j.kcal}
-              </h:column>
-              <h:column>
-                  <f:facet name="header">Akce</f:facet>
-                  
-                  <h:form>
-                    <h:commandButton value="Přidat do jídelníčku" action="#{jidelnicekBean.pridejJidloUzivateli(j.IDJidlo)}" />
-                  </h:form>
+                  <f:facet name="header">Poznámka</f:facet>
+                  #{j.poznamka}
               </h:column>
           </h:dataTable>
       </div>

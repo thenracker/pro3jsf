@@ -30,6 +30,10 @@ public class JidloBean {
     /**
      * Creates a new instance of BaseBean
      */
+    private String nazev;
+    private double kcal;
+    private double vaha;
+    
     public JidloBean() {
     }
     public Connection getConnection(){
@@ -74,5 +78,88 @@ public class JidloBean {
         } 
 
         return jidla;
+    }
+    
+    public JidloDao getJidloById(int id){
+        JidloDao jd = new JidloDao();
+        try{
+            Connection conn = getConnection();
+            Statement stm = conn.createStatement();
+            String sql = "SELECT * FROM Jidlo WHERE IDJidlo = " + id;
+            ResultSet rs = stm.executeQuery(sql);
+            while(rs.next()){
+                jd.setIDJidlo(rs.getInt(1));
+                jd.setNazev(rs.getString(2));
+                jd.setPopis(rs.getString(3));
+                jd.setVahaGramy(rs.getDouble(4));
+                jd.setBilkoviny(rs.getDouble(5));
+                jd.setTuky(rs.getDouble(6));
+                jd.setSacharidy(rs.getDouble(7));
+                jd.setCukry(rs.getDouble(8));
+                jd.setKcal(rs.getDouble(9));
+            }
+        }
+        catch(SQLException e){
+            Logger.getLogger(DbBeanMS.class.getName()).log(Level.SEVERE, null, e);
+        } 
+        return jd;
+    }
+    
+    public void addJidlo(){ //přidává jídlo do DB
+        try{
+            Connection conn = getConnection();
+            Statement stm = conn.createStatement();
+            //TO DO - upravit SQL na všechny hodnoty
+            String sql = "INSERT INTO Jidlo (Nazev,Kcal,VahaGramy) VALUES ('"
+                    + nazev + "',"
+                    + kcal + ","
+                    + vaha + ")";
+            stm.execute(sql);
+        }
+        catch(SQLException e){
+            Logger.getLogger(DbBeanMS.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+
+    /**
+     * @return the nazev
+     */
+    public String getNazev() {
+        return nazev;
+    }
+
+    /**
+     * @param nazev the nazev to set
+     */
+    public void setNazev(String nazev) {
+        this.nazev = nazev;
+    }
+
+    /**
+     * @return the kcal
+     */
+    public double getKcal() {
+        return kcal;
+    }
+
+    /**
+     * @param kcal the kcal to set
+     */
+    public void setKcal(double kcal) {
+        this.kcal = kcal;
+    }
+
+    /**
+     * @return the vaha
+     */
+    public double getVaha() {
+        return vaha;
+    }
+
+    /**
+     * @param vaha the vaha to set
+     */
+    public void setVaha(double vaha) {
+        this.vaha = vaha;
     }
 }

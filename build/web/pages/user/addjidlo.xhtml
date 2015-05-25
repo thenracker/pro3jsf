@@ -13,10 +13,6 @@
 
     <title>Uživatelé</title>
     <link href="../../css/style.css" rel="stylesheet" />
-    
-    <f:metadata>
-        <f:viewParam name="id" value="#{uzivatelBean.id}" />
-    </f:metadata>
   </head>
   <body>
       #{permitController.hasUserPermission()}
@@ -41,14 +37,20 @@
           </ul>
       </div>
       <div id="content">
-          <h1>Uživatel</h1>
-          <h2>#{uzivatelBean.uzivatel.jmeno} #{uzivatelBean.uzivatel.prijmeni}</h2>
-          <p>Email: #{uzivatelBean.uzivatel.email}</p>
-          <p>Heslo: #{uzivatelBean.uzivatel.heslo}</p>
-          <p>Telefon: #{uzivatelBean.uzivatel.telefon}</p>
-          <p>Datum narození: #{uzivatelBean.uzivatel.datumNarozeni}</p>
-          <p>Poslední aktivita: #{uzivatelBean.uzivatel.posledniLog}</p>
-          <p>Funkce: #{funkceBean.getFunkceByUzivatel(uzivatelBean.uzivatel.IDUzivatel).nazev}</p>
+          <h1>Přidat jídlo do DB</h1>
+          <h:form>
+            <h:messages style="color: red"></h:messages>
+            
+            <p>Název:</p>
+            <h:inputText id="nazev" required="true" value="#{jidloBean.nazev}" converterMessage="Zadejte název" />
+            <p>Kcal:</p>
+            <h:inputText id="kcal" converter="javax.faces.Double" required="true" value="#{jidloBean.kcal}" converterMessage="Zadejte počet kCal" />
+            <p>Váha (g):</p>
+            <h:inputText id="vaha" converter="javax.faces.Double" required="true" value="#{jidloBean.vaha}" converterMessage="Zadejte váhu" />
+            
+            <h:commandButton value="Uložit" action="#{jidloBean.addJidlo()}" />
+
+        </h:form>
       </div>
   </body>
 </html>

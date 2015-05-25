@@ -16,6 +16,7 @@ public class JidelnicekDao {
     private int IDJidelnicek, IDUzivatel, IDJidlo;
     private String Typ, Poznamka;
     private Timestamp Cas;
+    private JidloDao JidloDao;
 
     /**
      * @return the IDJidelnicek
@@ -99,5 +100,19 @@ public class JidelnicekDao {
      */
     public void setCas(Timestamp Cas) {
         this.Cas = Cas;
+    }
+
+    /**
+     * @return the JidloDao
+     */
+    public JidloDao getJidloDao() {
+        return JidloDao;
+    }
+
+    /**
+     * @param JidloDao the JidloDao to set
+     */
+    public void setJidloDao(JidloDao JidloDao) {
+        this.JidloDao = JidloDao;
     }
 }

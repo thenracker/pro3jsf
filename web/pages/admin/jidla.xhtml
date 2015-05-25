@@ -12,10 +12,10 @@
     <link rel="icon" href="../../favicon.ico" />
 
     <title>Uživatelé</title>
-    <link href="../css/style.css" rel="stylesheet" />
+    <link href="../../css/style.css" rel="stylesheet" />
   </head>
   <body>
-      <div id="mainmenu">
+      <div id="mainmenu" class="admin">
           <ul>
               <li>
                   <a href="uzivatele.xhtml">Uživatelé</a>
@@ -24,41 +24,48 @@
                   <a href="jidla.xhtml">Jídla</a>
               </li>
               <li>
+                  <a href="#">Jídelníček</a>
+              </li>
+              <li>
                   <a href="#">Uživatel</a>
                   <ul>
-                      <li><a href="signin.xhtml">Přihlásit se</a></li>
+                      <li><a href="#">Odhlásit se</a></li>
                       <li><a href="#">Profil?</a></li>
                   </ul>
               </li>
           </ul>
       </div>
       <div id="content">
-          <h1>Uživatelé</h1>
-          <h2>Tabulka uživatelů</h2>
-          <h:dataTable value="#{uzivatelBean.uzivatele}" var="u">
+          <h1>Jídla</h1>
+          <h2>Tabulka jídel</h2>
+          <h:dataTable value="#{jidloBean.jidla}" var="j">
               <h:column>
-                  <f:facet name="header">Jméno</f:facet>
-                  #{u.jmeno}
+                  <f:facet name="header">Název</f:facet>
+                  #{j.nazev}
               </h:column>
               <h:column>
-                  <f:facet name="header">Příjmení</f:facet>
-                  <a href="user.xhtml?id=#{u.IDUzivatel}">#{u.prijmeni}</a>
+                  <f:facet name="header">Váha (g)</f:facet>
+                  #{j.vahaGramy}
               </h:column>
               <h:column>
-                  <f:facet name="header">Email</f:facet>
-                  #{u.email}
+                  <f:facet name="header">Bílkoviny (g)</f:facet>
+                  #{j.bilkoviny}
               </h:column>
               <h:column>
-                  <f:facet name="header">Datum narození</f:facet>
-                  #{u.datumNarozeni}
+                  <f:facet name="header">Tuky (g)</f:facet>
+                  #{j.tuky}
               </h:column>
               <h:column>
-                  <f:facet name="header">Potvrzen</f:facet>
-                  #{u.potvrzen}
+                  <f:facet name="header">Sacharidy (g)</f:facet>
+                  #{j.sacharidy}
               </h:column>
               <h:column>
-                  <f:facet name="header">Poslední log</f:facet>
-                  #{u.posledniLog}
+                  <f:facet name="header">Cukry (g)</f:facet>
+                  #{j.cukry}
+              </h:column>
+              <h:column>
+                  <f:facet name="header">kCal</f:facet>
+                  #{j.kcal}
               </h:column>
           </h:dataTable>
       </div>
