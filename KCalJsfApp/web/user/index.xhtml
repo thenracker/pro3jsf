@@ -14,8 +14,30 @@
     
     </h:head>
     <h:body>
-        <h1>VÍTEJTE PANE UŽIVATELI #{accessController.uzivatel.jmeno} #{accessController.uzivatel.prijmeni}</h1>
-        
+        #{accessController.hasUserPermission()}
+        <div id="mainmenu">
+            <ul>
+                <li>
+                    <a href="uzivatele.xhtml">Uživatelé</a>
+                </li>
+                <li>
+                    <a href="jidla.xhtml">Jídla</a>
+                </li>
+                <li>
+                    <a href="jidelnicek.xhtml">Jídelníček</a>
+                </li>
+                <li>
+                    <a href="#">Uživatel</a>
+                    <ul>
+                        <li><a href="signin.xhtml">Přihlásit se</a></li>
+                        <li><a href="#">Profil?</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+            <h1>VÍTEJTE PANE UŽIVATELI #{accessController.uzivatel.jmeno} #{accessController.uzivatel.prijmeni}</h1>
+        </div>
     </h:body>
 </html>
 

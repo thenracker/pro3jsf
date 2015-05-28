@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -31,6 +33,22 @@ public class AccessControllerBean {
         ub = new UzivatelBean();
     }
     
+    //permission methods - na začátku každý xhtml
+    public void hasUserPermission(){
+        if(uzivatel.getIDFunkce() != 2)try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/error.xhtml");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void hasAdminPermission(){
+        if(uzivatel.getIDFunkce() != 1)try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/error.xhtml");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } 
+    }
+    
     //log methods
     public void logIn(){
         getConnectionMS(); //natáhne conn do sešny
@@ -48,7 +66,8 @@ public class AccessControllerBean {
     }
     public void logOut(){
         //uložit aktuálnímu uživateli
-        uzivatel = (UzivatelDao) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        //Následující řádek asi není třeba :) bikós of sešnskoup
+        //uzivatel = (UzivatelDao) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
         
         uzivatel.setPosledniLog(new Timestamp(System.currentTimeMillis())); 
         ub.setUzivatel(uzivatel);
