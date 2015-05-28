@@ -14,20 +14,8 @@
     
     </h:head>
     <h:body>
-        <h1>KCal App</h1>
-        <h2>PŘIHLAŠTE SE PRO VSTUP DO SYSTÉMU</h2>
-        <h:form>
-            <p>
-            <h:messages style="color: red"></h:messages>
-            </p>
-            <p>Email:</p>
-            <h:inputText required="true" value="#{accessController.uzivatel.email}" converterMessage="Zadejte přihlašovací jméno" />
-            <p>Heslo:</p>
-            <h:inputSecret required="true" value="#{accessController.uzivatel.heslo}" converterMessage="Zadejte heslo" />
-            <p></p>
-            <h:commandButton value="Odeslat" action="#{accessController.logIn()}" />
-
-        </h:form>
+        <h1>VÍTEJTE PANE ADMINE #{accessController.uzivatel.jmeno} #{accessController.uzivatel.prijmeni}</h1>
+        
     </h:body>
 </html>
 

@@ -5,6 +5,8 @@
  */
 package dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -19,6 +21,23 @@ public class UzivatelDao {
     private Timestamp PosledniLog;
     private boolean Potvrzen; 
 
+    public UzivatelDao(){
+        
+    }
+    
+    public UzivatelDao(ResultSet rs) throws SQLException{
+        setIDUzivatel(rs.getInt(1));
+        setIDFunkce(rs.getInt(2));
+        setJmeno(rs.getString(3));
+        setPrijmeni(rs.getString(4));
+        setEmail(rs.getString(5));
+        setHeslo(rs.getString(6));
+        setTelefon(rs.getString(7));
+        setDatumNarozeni(rs.getDate(8));
+        setPotvrzen(rs.getBoolean(9));
+        setPosledniLog(rs.getTimestamp(10));
+    }
+    
     /**
      * @return the IDUzivatel
      */
