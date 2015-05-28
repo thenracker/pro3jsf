@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -40,7 +38,7 @@ public class UzivatelBean{
             String sql = "SELECT * FROM Uzivatel WHERE Email = '"
                     + uzivatel.getEmail() + "'"
                     + " AND Heslo = '"
-                    + uzivatel.getHeslo() + "'";
+                    + uzivatel.getHeslo() + "';";
             ResultSet rs = stm.executeQuery(sql);
             if(rs.next()){
                 uzivatel = new UzivatelDao(rs);
@@ -61,7 +59,7 @@ public class UzivatelBean{
             Statement stm = conn.createStatement();
             String sql = "UPDATE Uzivatel "
                     + " SET " //TO DO
-                    + " WHERE Id = " + uzivatel.getIDUzivatel();
+                    + " WHERE Id = " + uzivatel.getIDUzivatel() + ";";
             ResultSet rs = stm.executeQuery(sql);
             if(rs.next()){
                 uzivatel = new UzivatelDao(rs);
@@ -81,7 +79,7 @@ public class UzivatelBean{
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM Uzivatel";
+            String sql = "SELECT * FROM Uzivatel;";
             ResultSet rs = stm.executeQuery(sql);
             while(rs.next()){
                 uzivatele.add(new UzivatelDao(rs));

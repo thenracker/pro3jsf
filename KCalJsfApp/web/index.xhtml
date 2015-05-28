@@ -25,7 +25,7 @@
             <p>Heslo:</p>
             <h:inputSecret required="true" value="#{accessController.uzivatel.heslo}" converterMessage="Zadejte heslo" />
             <p></p>
-            <h:commandButton value="Odeslat" action="#{accessController.logIn()}" />
+            <h:commandButton value="Odeslat" action="#{accessController.logIn()}" /> #{dbManager}
 
         </h:form>
     </h:body>
