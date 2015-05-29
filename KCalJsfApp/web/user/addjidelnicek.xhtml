@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Application Jsf kCal" />
+        <meta name="author" content="PetrAndVlado" />
+        <link rel="icon" href="../../favicon.ico" />
+        <link href="../../css/style.css" rel="stylesheet" />
+        <title>KCAL APP - Přidat jídlo do DB</title>
+    
+    </h:head>
+    <h:body>
+        #{accessController.hasUserPermission()}
+        <div id="mainmenu">
+            <ul>
+                <li>
+                    <a href="#">Jídla</a>
+                    <ul>
+                        <li><a href="jidla.xhtml">Zobrazit jídla</a></li>
+                        <li><a href="addjidlo.xhtml">Přidat jídlo</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Můj jídelníček</a>
+                    <ul>
+                        <li><a href="jidelnicek.xhtml">Zobrazit jídelníček</a></li>
+                        <li><a href="addjidelnicek.xhtml">Přidat jídlo</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Status</a>
+                    <ul>
+                        <li><a href="status.xhtml">Zobrazit status</a></li>
+                        <li><a href="addstatus.xhtml">Přidat status</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Uživatel</a>
+                    <ul>
+                        <li><a href="logout.xhtml">Odhlásit se</a></li>
+                        <li><a href="user.xhtml">Profil</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+            <h2>Tabulka jídel</h2>
+            <h1>Přidat jídlo do jídelníčku</h1>
+            <h:form>
+                <h:messages style="color: red"></h:messages>
+
+                <p>Typ jídla:</p>
+                <h:selectOneMenu value="#{jidelnicekBean.jidelnicek.typ}">
+                    <f:selectItem itemValue="Snídaně" itemLabel="Snídaně" />
+                    <f:selectItem itemValue="Dopolední svačina" itemLabel="Dopolední svačina" />
+                    <f:selectItem itemValue="Oběd" itemLabel="Oběd" />
+                    <f:selectItem itemValue="Odpolední svačina" itemLabel="Odpolední svačina" />
+                    <f:selectItem itemValue="Večeře" itemLabel="Večeře" />				
+                    <f:selectItem itemValue="Druhá večeře" itemLabel="Druhá večeře" />				
+                </h:selectOneMenu>
+                
+                <p>Jídlo:</p>
+                <h:selectOneMenu value="#{jidelnicekBean.jidelnicek.IDJidlo}">
+                    <c:forEach items="${jidloBean.allJidla}" var="j">
+                        <f:selectItem itemValue="${j.IDJidlo}" itemLabel="${j.nazev} (${j.vahaGramy}g)" />
+                    </c:forEach>
+                </h:selectOneMenu>
+                
+                <p>Poznámka:</p>
+                <h:inputText required="false" value="#{jidelnicekBean.jidelnicek.poznamka}" />
+                
+                <p></p>
+                <h:outputLabel value="Zadejte datum" />
+                <h:inputText value="#{jidelnicekBean.jidelnicek.cas}"  id="datum" size="20" required="true" requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.2015 12:33)" >
+                    <f:convertDateTime pattern="d.M.yyyy' 'HH:mm" />	
+                </h:inputText>
+                
+                <p></p>
+                <h:commandButton value="Uložit" action="#{jidelnicekBean.insertJidelnicek()}" />
+                <h:button value="Zpět na jídla" outcome="jidla" />
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

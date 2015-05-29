@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Application Jsf kCal" />
+        <meta name="author" content="PetrAndVlado" />
+        <link rel="icon" href="../../favicon.ico" />
+        <link href="../css/style.css" rel="stylesheet" />
+        <title>KCAL APP - Registrace</title>
+    
+    </h:head>
+    <h:body>
+        <div id="content">
+            <h1>KCal App</h1>
+            <h2>REGISTRACE</h2>
+            <h:form>
+                <p>
+                <h:messages style="color: red"></h:messages>
+                </p>
+                <p>*Email:</p>
+                <h:inputText required="true" value="#{uzivatelBean.uzivatel.email}" requiredMessage="*Zadejte přihlašovací email" />
+                <p>*Heslo:</p>
+                <h:inputSecret required="true" value="#{uzivatelBean.uzivatel.heslo}" requiredMessage="*Zadejte heslo" />
+                <p>*Jméno:</p>
+                <h:inputText required="true" value="#{uzivatelBean.uzivatel.jmeno}" requiredMessage="*Zadejte křestní jméno" />
+                <p>*Příjmení:</p>
+                <h:inputText required="true" value="#{uzivatelBean.uzivatel.prijmeni}" requiredMessage="*Zadejte příjmení" />
+                <p>Datum narození ve formátu "rrrr-mm-dd":</p>
+                <h:inputText required="false" value="#{uzivatelBean.uzivatel.datumNarozeni}" converterMessage="Zadejte datum narození (např.: 1994-05-15)" >
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+                <p>Telefon:</p>
+                <h:inputText required="false" value="#{uzivatelBean.uzivatel.telefon}" />
+                <p></p>
+                <h:commandButton value="Odeslat" action="#{uzivatelBean.insertUzivatel()}" />       
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

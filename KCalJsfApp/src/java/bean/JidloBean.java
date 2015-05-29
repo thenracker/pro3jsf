@@ -5,13 +5,14 @@
  */
 package bean;
 
-import dao.UzivatelDao;
+import dao.JidloDao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -22,103 +23,105 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @RequestScoped
-public class UzivatelBean{
+public class JidloBean {
 
-    private UzivatelDao uzivatel;
+    private JidloDao jidlo;
     
-    public UzivatelBean() {
-        
+    public JidloBean() {
+        jidlo = new JidloDao();
     }
-    
-    public UzivatelDao loadUzivatel(){
-        //Nejdřív se volá setUzivatel a pak load..
+
+    public JidloDao loadJidlo(){
+        //nejdřív se volá setJidlo a nastaví se ID a podle toho se dotáhne zbytek
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM Uzivatel WHERE Email = '"
-                    + uzivatel.getEmail() + "'"
-                    + " AND Heslo = '"
-                    + uzivatel.getHeslo() + "';";
+            String sql = "SELECT * FROM Jidlo WHERE IDJidlo = "
+                    + jidlo.getIDJidlo() + ";";
             ResultSet rs = stm.executeQuery(sql);
             if(rs.next()){
-                uzivatel = new UzivatelDao(rs);
+                jidlo = new JidloDao(rs);
             }
             else{
-                uzivatel = null;
+                jidlo = null;
             }
         }
         catch(SQLException e){
             e.printStackTrace();
         } 
-        return uzivatel;
+        return jidlo;
     }
     
-    public void insertUzivatel(){
-        try{
+    public void insertJidlo(){
+       try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
-            String sql = "INSERT INTO Uzivatel (Jmeno,Prijmeni,Email,Heslo,Telefon,DatumNarozeni,IDFunkce"
+            String sql = "INSERT INTO Jidlo (Nazev,Popis,VahaGramy,Bilkoviny,Tuky,Sacharidy,Cukry,Kcal)"
                     + " VALUES('"
-                    + uzivatel.getJmeno() + "','"
-                    + uzivatel.getPrijmeni() + "','"
-                    + uzivatel.getEmail() + "','"
-                    + uzivatel.getHeslo() + "',"
-                    + uzivatel.getTelefon() + ",'"
-                    + uzivatel.getDatumNarozeni() + "',"
-                    + "2"
+                    + jidlo.getNazev() + "','"
+                    + jidlo.getPopis() + "',"
+                    + jidlo.getVahaGramy() + ","
+                    + jidlo.getBilkoviny() + ","
+                    + jidlo.getTuky() + ","
+                    + jidlo.getSacharidy() + ","
+                    + jidlo.getCukry() + ","
+                    + jidlo.getKcal()
                     + ");";
+            stm.execute(sql);
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Jídlo bylo úspěšně přidáno"));
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Jídlo bylo se NEPODAŘILO uložit"));
+        }  
+    }
+    
+    public void deleteJidlo(JidloDao j){
+       try{
+            Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
+            Statement stm = conn.createStatement();
+            String sql = "DELETE Jidlo"
+                    + " WHERE IDJidlo = "
+                    + j.getIDJidlo()
+                    + ";";
             stm.execute(sql);
         }
         catch(SQLException e){
             e.printStackTrace();
-        }
+        }  
     }
     
-    public void updateUzivatel(){
-        //Nejdřív se volá setUzivatel a pak update.. 
-        try{
-            Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
-            Statement stm = conn.createStatement();
-            String sql = "UPDATE Uzivatel "
-                    + " SET " //TO DO
-                    + " WHERE Id = " + uzivatel.getIDUzivatel() + ";";
-            ResultSet rs = stm.executeQuery(sql);
-            if(rs.next()){
-                uzivatel = new UzivatelDao(rs);
-            }
-            else{
-                uzivatel = null;
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        } 
-    }
-    
-    public List<UzivatelDao> getUzivatele(){
-        List<UzivatelDao> uzivatele = new ArrayList<UzivatelDao>();
+    public List<JidloDao> getAllJidla(){
+        List<JidloDao> jidla = new ArrayList<JidloDao>();
         
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM Uzivatel;";
+            String sql = "SELECT * FROM Jidlo;";
             ResultSet rs = stm.executeQuery(sql);
             while(rs.next()){
-                uzivatele.add(new UzivatelDao(rs));
+                jidla.add(new JidloDao(rs));
             }
         }
         catch(SQLException e){
             e.printStackTrace();
         } 
 
-        return uzivatele;
+        return jidla;
+    }
+    
+    /**
+     * @return the jidlo
+     */
+    public JidloDao getJidlo() {
+        return jidlo;
     }
 
-    public UzivatelDao getUzivatel() {
-        return uzivatel;
+    /**
+     * @param jidlo the jidlo to set
+     */
+    public void setJidlo(JidloDao jidlo) {
+        this.jidlo = jidlo;
     }
-
-    public void setUzivatel(UzivatelDao uzivatel) {
-        this.uzivatel = uzivatel;
-    }
+    
 }

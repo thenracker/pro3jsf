@@ -34,14 +34,14 @@ public class AccessControllerBean {
     //permission methods - na začátku každý xhtml
     public void hasUserPermission(){
         if(uzivatel.getIDFunkce() != 2)try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/error.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/KCalJsfApp/faces/error.xhtml");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
     public void hasAdminPermission(){
         if(uzivatel.getIDFunkce() != 1)try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/error.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/KCalJsfApp/faces/error.xhtml");
         } catch (IOException ex) {
             ex.printStackTrace();
         } 
@@ -49,7 +49,12 @@ public class AccessControllerBean {
     
     //log methods
     public void logIn(){
-        getConnectionPOSTGRE(); //natáhne conn do sešny
+        
+        //POKUD se MS nenačte - načte se POSTGRE  
+        getConnectionMS();
+        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn") == null)
+            getConnectionPOSTGRE();
+        
         ub.setUzivatel(uzivatel);
         uzivatel = ub.loadUzivatel();
         if(uzivatel != null){
@@ -74,7 +79,7 @@ public class AccessControllerBean {
         //a odhlásit
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/index.xthml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/KCalJsfApp/faces/index.xthml");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

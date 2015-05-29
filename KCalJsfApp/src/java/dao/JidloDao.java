@@ -5,6 +5,9 @@
  */
 package dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -15,6 +18,23 @@ public class JidloDao {
     private String Nazev, Popis;
     private double VahaGramy, Bilkoviny, Tuky, Sacharidy, Cukry, Kcal;
 
+    public JidloDao(){
+        
+    }
+    
+    public JidloDao(ResultSet rs) throws SQLException{
+        IDJidlo = rs.getInt(1);
+        Nazev = rs.getString(2);
+        Popis = rs.getString(3);
+        VahaGramy = rs.getDouble(4);
+        Bilkoviny = rs.getDouble(5);
+        Tuky = rs.getDouble(6);
+        Sacharidy = rs.getDouble(7);
+        Cukry = rs.getDouble(8);
+        Kcal = rs.getDouble(9);
+    }
+
+    
     public int getIDJidlo() {
         return IDJidlo;
     }

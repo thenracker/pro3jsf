@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Application Jsf kCal" />
+        <meta name="author" content="PetrAndVlado" />
+        <link rel="icon" href="../../favicon.ico" />
+        <link href="../../css/style.css" rel="stylesheet" />
+        <title>KCAL APP - Přidat jídlo do DB</title>
+    
+    </h:head>
+    <h:body>
+        #{accessController.hasUserPermission()}
+        <div id="mainmenu">
+            <ul>
+                <li>
+                    <a href="#">Jídla</a>
+                    <ul>
+                        <li><a href="jidla.xhtml">Zobrazit jídla</a></li>
+                        <li><a href="addjidlo.xhtml">Přidat jídlo</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Můj jídelníček</a>
+                    <ul>
+                        <li><a href="jidelnicek.xhtml">Zobrazit jídelníček</a></li>
+                        <li><a href="addjidelnicek.xhtml">Přidat jídlo</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Status</a>
+                    <ul>
+                        <li><a href="status.xhtml">Zobrazit status</a></li>
+                        <li><a href="addstatus.xhtml">Přidat status</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Uživatel</a>
+                    <ul>
+                        <li><a href="logout.xhtml">Odhlásit se</a></li>
+                        <li><a href="user.xhtml">Profil</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+            <h2>Tabulka jídel</h2>
+            <h1>Přidat jídlo do DB</h1>
+            <h:form>
+                <h:messages style="color: red"></h:messages>
+
+                <p>Název:</p>
+                <h:inputText required="true" value="#{jidloBean.jidlo.nazev}" requiredMessage="Zadejte název" />
+                <p>Popis:</p>
+                <h:inputText required="false" value="#{jidloBean.jidlo.popis}" />
+                <p>Váha (g):</p>
+                <h:inputText converter="javax.faces.Double" required="true" value="#{jidloBean.jidlo.vahaGramy}" requiredMessage="Zadejte počet gramů porce" converterMessage="Váha musí být číslo" />
+                <p>Kcal:</p>
+                <h:inputText converter="javax.faces.Double" required="true" value="#{jidloBean.jidlo.kcal}" requiredMessage="Zadejte počet kCal porce" converterMessage="kCal musí být číslo" />
+                <p>Bílkoviny (g):</p>
+                <h:inputText converter="javax.faces.Double" required="false" value="#{jidloBean.jidlo.bilkoviny}" converterMessage="Bílkoviny musí být číslo" />
+                <p>Sacharidy (g):</p>
+                <h:inputText converter="javax.faces.Double" required="false" value="#{jidloBean.jidlo.sacharidy}" converterMessage="Sacharidy musí být číslo" />
+                <p>Z toho cukry (g):</p>
+                <h:inputText converter="javax.faces.Double" required="false" value="#{jidloBean.jidlo.cukry}" converterMessage="Cukry musí být číslo" />
+                <p>Tuky (g):</p>
+                <h:inputText converter="javax.faces.Double" required="false" value="#{jidloBean.jidlo.tuky}" converterMessage="Tuky musí být číslo" />
+                <p></p>
+                <h:commandButton value="Uložit" action="#{jidloBean.insertJidlo()}" />
+                <h:button value="Zpět na jídla" outcome="jidla" />
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

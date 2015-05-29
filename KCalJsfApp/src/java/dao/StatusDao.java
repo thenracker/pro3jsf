@@ -5,7 +5,9 @@
  */
 package dao;
 
-import java.sql.Timestamp;
+import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 /**
@@ -15,9 +17,21 @@ import java.sql.Timestamp;
 public class StatusDao {
     private int IDStatus, IDUzivatel;
     private double Vaha;
-    private Timestamp Datum;
+    private Date Datum;
     private String Poznamka;
 
+    public StatusDao(){
+        
+    }
+    
+    public StatusDao(ResultSet rs) throws SQLException{
+        IDStatus = rs.getInt("IDStatus");
+        IDUzivatel = rs.getInt("IDUzivatel");
+        Vaha = rs.getDouble("Vaha");
+        Datum = rs.getDate("Datum");
+        Poznamka = rs.getString("Poznamka");
+    }
+    
     public int getIDStatus() {
         return IDStatus;
     }
@@ -42,11 +56,11 @@ public class StatusDao {
         this.Vaha = Vaha;
     }
 
-    public Timestamp getDatum() {
+    public Date getDatum() {
         return Datum;
     }
 
-    public void setDatum(Timestamp Datum) {
+    public void setDatum(Date Datum) {
         this.Datum = Datum;
     }
 
