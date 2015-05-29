@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -51,7 +49,7 @@ public class AccessControllerBean {
     
     //log methods
     public void logIn(){
-        getConnectionMS(); //natáhne conn do sešny
+        getConnectionPOSTGRE(); //natáhne conn do sešny
         ub.setUzivatel(uzivatel);
         uzivatel = ub.loadUzivatel();
         if(uzivatel != null){
@@ -99,7 +97,18 @@ public class AccessControllerBean {
         //TO DO - co když se spojení nenačte? Budeme v každý fci u Beanů kontrolovat, jestli tam je null?
     }
     public void getConnectionPOSTGRE(){
-        
+        Connection conn = null;
+        String url = "jdbc:postgresql://localhost:1433/kcal";
+        String username = "kcal";
+        String password = "kcal";
+        try{
+            Class.forName("org.postgresql.Driver");
+            conn = DriverManager.getConnection(url, username, password);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conn", conn);
     }
 
     /**

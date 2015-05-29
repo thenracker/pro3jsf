@@ -91,17 +91,11 @@ public class UzivatelBean{
 
         return uzivatele;
     }
-    
-    /**
-     * @return the uzivatel
-     */
+
     public UzivatelDao getUzivatel() {
         return uzivatel;
     }
-    
-    /**
-     * @param uzivatel the uzivatel to set
-     */
+
     public void setUzivatel(UzivatelDao uzivatel) {
         this.uzivatel = uzivatel;
     }
