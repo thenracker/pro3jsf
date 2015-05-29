@@ -1,11 +1,13 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 #mainmenu{
     margin: 0; padding: 0;
     height: 50px;
     background-color: black;
+    font-variant: small-caps;
 }
 #mainmenu.admin{
     background-color: maroon; color: white;
@@ -50,6 +52,24 @@ body{
     width: 1000px;
 }
 
+table{
+    border-collapse: collapse;
+}
+th{
+    padding: 5px;
+    border-bottom: 3px double black;
+}
+tr{
+    border-bottom: 1px solid black;
+}
+td{
+    padding: 10px;
+    text-align: left;
+}
+
+.form tr{
+    border: none;
+}
 
 @media (max-width : 1000px)
 {

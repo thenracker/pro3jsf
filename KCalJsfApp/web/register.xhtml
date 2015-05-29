@@ -23,22 +23,25 @@
                 <h:messages style="color: red"></h:messages>
                 </p>
                 <p>*Email:</p>
-                <h:inputText required="true" value="#{uzivatelBean.uzivatel.email}" requiredMessage="*Zadejte přihlašovací email" />
+                <h:inputText required="true" value="#{uzivatelBean.uzivatel.email}" requiredMessage="Zadejte přihlašovací email" />
                 <p>*Heslo:</p>
-                <h:inputSecret required="true" value="#{uzivatelBean.uzivatel.heslo}" requiredMessage="*Zadejte heslo" />
+                <h:inputSecret required="true" value="#{uzivatelBean.uzivatel.heslo}" requiredMessage="Zadejte heslo" />
                 <p>*Jméno:</p>
-                <h:inputText required="true" value="#{uzivatelBean.uzivatel.jmeno}" requiredMessage="*Zadejte křestní jméno" />
+                <h:inputText required="true" value="#{uzivatelBean.uzivatel.jmeno}" requiredMessage="Zadejte křestní jméno" />
                 <p>*Příjmení:</p>
-                <h:inputText required="true" value="#{uzivatelBean.uzivatel.prijmeni}" requiredMessage="*Zadejte příjmení" />
-                <p>Datum narození ve formátu "rrrr-mm-dd":</p>
-                <h:inputText required="false" value="#{uzivatelBean.uzivatel.datumNarozeni}" converterMessage="Zadejte datum narození (např.: 1994-05-15)" >
-                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                <h:inputText required="true" value="#{uzivatelBean.uzivatel.prijmeni}" requiredMessage="Zadejte příjmení" />
+                <p>Datum narození (např.: 15.5.1975):</p>
+                <h:inputText required="false" value="#{uzivatelBean.uzivatel.datumNarozeni}" converterMessage="Špatný formát datumu (např. 31.1.2010)" >
+                    <f:convertDateTime pattern="dd.MM.yyyy"/>
                 </h:inputText>
                 <p>Telefon:</p>
                 <h:inputText required="false" value="#{uzivatelBean.uzivatel.telefon}" />
                 <p></p>
-                <h:commandButton value="Odeslat" action="#{uzivatelBean.insertUzivatel()}" />       
+                <h:commandButton value="Registrovat" action="#{uzivatelBean.insertUzivatel()}" /> 
+                      
             </h:form>
+            <h2>Jste již registrovaní?</h2>
+            <h:button value="Přihlásit se" outcome="index" />
         </div>
     </h:body>
 </html>

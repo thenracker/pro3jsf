@@ -26,9 +26,11 @@ import javax.faces.context.FacesContext;
 public class JidloBean {
 
     private JidloDao jidlo;
+    private String filtrText;
     
     public JidloBean() {
         jidlo = new JidloDao();
+        filtrText = "";
     }
 
     public JidloDao loadJidlo(){
@@ -97,7 +99,10 @@ public class JidloBean {
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM Jidlo;";
+            String sql = "SELECT * FROM Jidlo"
+                    + " WHERE Nazev LIKE ('%" + filtrText
+                    + "%')"
+                    + ";";
             ResultSet rs = stm.executeQuery(sql);
             while(rs.next()){
                 jidla.add(new JidloDao(rs));
@@ -122,6 +127,14 @@ public class JidloBean {
      */
     public void setJidlo(JidloDao jidlo) {
         this.jidlo = jidlo;
+    }
+
+    public String getFiltrText() {
+        return filtrText;
+    }
+
+    public void setFiltrText(String filtrText) {
+        this.filtrText = filtrText;
     }
     
 }

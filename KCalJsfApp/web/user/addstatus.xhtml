@@ -19,30 +19,30 @@
         <div id="mainmenu">
             <ul>
                 <li>
-                    <a href="#">Jídla</a>
+                    <a href="jidla.xhtml">Jídla</a>
                     <ul>
                         <li><a href="jidla.xhtml">Zobrazit jídla</a></li>
                         <li><a href="addjidlo.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Můj jídelníček</a>
+                    <a href="jidelnicek.xhtml">Můj jídelníček</a>
                     <ul>
                         <li><a href="jidelnicek.xhtml">Zobrazit jídelníček</a></li>
                         <li><a href="addjidelnicek.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Status</a>
+                    <a href="status.xhtml">Status</a>
                     <ul>
                         <li><a href="status.xhtml">Zobrazit status</a></li>
                         <li><a href="addstatus.xhtml">Přidat status</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Uživatel</a>
+                    <a href="user.xhtml">Uživatel</a>
                     <ul>
-                        <li><a href="logout.xhtml">Odhlásit se</a></li>
+                        <li><a href="logout.xhtml" onclick="confirm('Opravdu se chcete odhlásit?')">Odhlásit se</a></li>
                         <li><a href="user.xhtml">Profil</a></li>
                     </ul>
                 </li>
@@ -54,7 +54,7 @@
             <h:form>
                 <h:messages style="color: red"></h:messages>
                 
-                <h:panelGrid id="panel" columns="3" border="0" cellpadding="10" cellspacing="1">
+                <h:panelGrid id="panel" class="form" columns="3" border="0" cellpadding="10" cellspacing="1">
                     
                     <h:outputLabel value="Zadejte váhu" />
                     <h:inputText value="#{statusBean.status.vaha}"  id="username"  size="20" required="true" requiredMessage="Zadejte název">
@@ -69,10 +69,12 @@
                     <h:message for="datum" style="color:red" />
                     
                     <h:outputLabel value="Zadejte poznámku" />
-                    <h:inputTextarea required="false" value="#{statusBean.status.poznamka}" />
+                    <h:inputText required="false" value="#{statusBean.status.poznamka}" />
                     
+                </h:panelGrid>    
                     <h:commandButton id="submit" value="Uložit status" action="#{statusBean.insertStatus()}"/>
-                </h:panelGrid>
+                    <h:button value="Zpět" outcome="status" />
+                
             </h:form>
         </div>
     </h:body>

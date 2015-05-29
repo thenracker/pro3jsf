@@ -19,38 +19,44 @@
         <div id="mainmenu">
             <ul>
                 <li>
-                    <a href="#">Jídla</a>
+                    <a href="jidla.xhtml">Jídla</a>
                     <ul>
                         <li><a href="jidla.xhtml">Zobrazit jídla</a></li>
                         <li><a href="addjidlo.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Můj jídelníček</a>
+                    <a href="jidelnicek.xhtml">Můj jídelníček</a>
                     <ul>
                         <li><a href="jidelnicek.xhtml">Zobrazit jídelníček</a></li>
                         <li><a href="addjidelnicek.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Status</a>
+                    <a href="status.xhtml">Status</a>
                     <ul>
                         <li><a href="status.xhtml">Zobrazit status</a></li>
                         <li><a href="addstatus.xhtml">Přidat status</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Uživatel</a>
+                    <a href="user.xhtml">Uživatel</a>
                     <ul>
-                        <li><a href="logout.xhtml">Odhlásit se</a></li>
+                        <li><a href="logout.xhtml" onclick="confirm('Opravdu se chcete odhlásit?')">Odhlásit se</a></li>
                         <li><a href="user.xhtml">Profil</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
         <div id="content">
-            <h2>Tabulka jídel</h2>
-            <h:dataTable value="#{jidelnicekBean.selectAllUserJidelnicek()}" var="j">
+            <h2>Jídelníček</h2>       
+                
+            <h:dataTable value="#{jidelnicekBean.selectAllUserJidelnicek()}" var="j" >
+                <f:facet name="header">
+                    <h:outputText 
+                        value="JÍDLA ZE DNE #{jidelnicekBean.datumJidelnicku.date}.#{jidelnicekBean.datumJidelnicku.month}." />
+                </f:facet>
+                    
                 <h:column>
                     <f:facet name="header">Typ jídla</f:facet>
                     #{j.typ}
@@ -59,7 +65,29 @@
                     <f:facet name="header">Název jídla</f:facet>
                     #{j.jidloDao.nazev}
                 </h:column>
-          </h:dataTable>
+                <h:column>
+                    <f:facet name="header">Počet kalorií</f:facet>
+                    #{j.jidloDao.kcal}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Čas</f:facet>
+                    #{j.cas.toLocaleString()}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Poznámka</f:facet>
+                    #{j.poznamka}
+                </h:column>
+            </h:dataTable>
+            
+            <h:form>
+                <h:panelGrid id="panel" class="form" columns="3" border="0" cellpadding="10" cellspacing="1">
+                    <h:outputLabel value="Zobrazit jídelníček ze dne:" />
+                    <h:inputText value="#{jidelnicekBean.datumJidelnicku}"  id="datum" size="20" required="true" requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.2015)" >
+                        <f:convertDateTime pattern="d.M.yyyy" />	
+                    </h:inputText>
+                    <h:message for="datum" style="color:red" />
+                </h:panelGrid>
+            </h:form> 
         </div>
     </h:body>
 </html>

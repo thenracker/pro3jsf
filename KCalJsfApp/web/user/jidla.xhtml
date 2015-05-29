@@ -19,30 +19,30 @@
         <div id="mainmenu">
             <ul>
                 <li>
-                    <a href="#">Jídla</a>
+                    <a href="jidla.xhtml">Jídla</a>
                     <ul>
                         <li><a href="jidla.xhtml">Zobrazit jídla</a></li>
                         <li><a href="addjidlo.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Můj jídelníček</a>
+                    <a href="jidelnicek.xhtml">Můj jídelníček</a>
                     <ul>
                         <li><a href="jidelnicek.xhtml">Zobrazit jídelníček</a></li>
                         <li><a href="addjidelnicek.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Status</a>
+                    <a href="status.xhtml">Status</a>
                     <ul>
                         <li><a href="status.xhtml">Zobrazit status</a></li>
                         <li><a href="addstatus.xhtml">Přidat status</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Uživatel</a>
+                    <a href="user.xhtml">Uživatel</a>
                     <ul>
-                        <li><a href="logout.xhtml">Odhlásit se</a></li>
+                        <li><a href="logout.xhtml" onclick="confirm('Opravdu se chcete odhlásit?')">Odhlásit se</a></li>
                         <li><a href="user.xhtml">Profil</a></li>
                     </ul>
                 </li>
@@ -50,6 +50,22 @@
         </div>
         <div id="content">
             <h2>Tabulka jídel</h2>
+            
+            <script type="text/javascript">
+                function clear(){
+                    document.getElementById('filtr').value = '';
+                }
+            </script>
+            
+            <h:form>
+                <h:panelGrid id="panel" class="form" columns="3" border="0" cellpadding="10" cellspacing="5">
+                    <h:outputLabel value="Filtrovat jídla dle slova v názvu" />
+                    <h:inputText id="filtr" onkeyup="window.prompt('Jak je','Dobře');" autocomplete="true" onclick="this.value='';" value="#{jidloBean.filtrText}" required="false" />
+                    <h:button onclick="clear();" value="Vyčistit" />
+                </h:panelGrid>
+            </h:form>
+            
+            
             <h:dataTable value="#{jidloBean.allJidla}" var="j">
                 <h:column>
                     <f:facet name="header">Název</f:facet>
@@ -82,7 +98,7 @@
                 <h:column>
                     <f:facet name="header">Operace</f:facet>
                     <h:form>
-                        <h:commandButton value="Smazat" action="#{jidloBean.deleteJidlo(j)}" />
+                        <h:commandButton value="Smazat" onclick="confirm('Opravdu smazat jídlo?');" action="#{jidloBean.deleteJidlo(j)}" />
                     </h:form>
                 </h:column>
           </h:dataTable>

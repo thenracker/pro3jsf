@@ -29,6 +29,11 @@ public class AccessControllerBean {
     public AccessControllerBean() {
         uzivatel = new UzivatelDao();
         ub = new UzivatelBean();
+        
+        //POKUD se MS nenačte - načte se POSTGRE  
+        getConnectionMS();
+        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn") == null)
+            getConnectionPOSTGRE();
     }
     
     //permission methods - na začátku každý xhtml
@@ -50,10 +55,6 @@ public class AccessControllerBean {
     //log methods
     public void logIn(){
         
-        //POKUD se MS nenačte - načte se POSTGRE  
-        getConnectionMS();
-        if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn") == null)
-            getConnectionPOSTGRE();
         
         ub.setUzivatel(uzivatel);
         uzivatel = ub.loadUzivatel();
@@ -79,7 +80,7 @@ public class AccessControllerBean {
         //a odhlásit
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/KCalJsfApp/faces/index.xthml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/KCalJsfApp/faces/index.xhtml");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

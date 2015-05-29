@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -27,7 +28,7 @@ public class UzivatelBean{
     private UzivatelDao uzivatel;
     
     public UzivatelBean() {
-        
+        uzivatel = new UzivatelDao();
     }
     
     public UzivatelDao loadUzivatel(){
@@ -54,23 +55,26 @@ public class UzivatelBean{
     }
     
     public void insertUzivatel(){
+        new AccessControllerBean();
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
-            String sql = "INSERT INTO Uzivatel (Jmeno,Prijmeni,Email,Heslo,Telefon,DatumNarozeni,IDFunkce"
+            String sql = "INSERT INTO Uzivatel (Jmeno,Prijmeni,Email,Heslo,Telefon,DatumNarozeni,IDFunkce)"
                     + " VALUES('"
                     + uzivatel.getJmeno() + "','"
                     + uzivatel.getPrijmeni() + "','"
                     + uzivatel.getEmail() + "','"
-                    + uzivatel.getHeslo() + "',"
-                    + uzivatel.getTelefon() + ",'"
-                    + uzivatel.getDatumNarozeni() + "',"
+                    + uzivatel.getHeslo() + "','"
+                    + uzivatel.getTelefon() + "','"
+                    + uzivatel.getDatumNarozeni().toInstant() + "',"
                     + "2"
                     + ");";
-            stm.execute(sql);
+            if(stm.execute(sql))FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Úspěšně registrován"));
         }
         catch(SQLException e){
             e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Nepodařilo se registrovat"));
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Heslo musí mít min. 8 znaků a musí obsahovat číslici"));
         }
     }
     

@@ -19,54 +19,54 @@
         <div id="mainmenu">
             <ul>
                 <li>
-                    <a href="#">Jídla</a>
+                    <a href="jidla.xhtml">Jídla</a>
                     <ul>
                         <li><a href="jidla.xhtml">Zobrazit jídla</a></li>
                         <li><a href="addjidlo.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Můj jídelníček</a>
+                    <a href="jidelnicek.xhtml">Můj jídelníček</a>
                     <ul>
                         <li><a href="jidelnicek.xhtml">Zobrazit jídelníček</a></li>
                         <li><a href="addjidelnicek.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Status</a>
+                    <a href="status.xhtml">Status</a>
                     <ul>
                         <li><a href="status.xhtml">Zobrazit status</a></li>
                         <li><a href="addstatus.xhtml">Přidat status</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Uživatel</a>
+                    <a href="user.xhtml">Uživatel</a>
                     <ul>
-                        <li><a href="logout.xhtml">Odhlásit se</a></li>
+                        <li><a href="logout.xhtml" onclick="confirm('Opravdu se chcete odhlásit?')">Odhlásit se</a></li>
                         <li><a href="user.xhtml">Profil</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
         <div id="content">
-            <h2>Tabulka jídel</h2>
+            <h2>Tabulka statusů</h2>
             <h:dataTable value="#{statusBean.selectAllUserStatus()}" var="s">
                 <h:column>
-                    <f:facet name="header">Název</f:facet>
-                    #{s.datum}
+                    <f:facet name="header">Datum</f:facet>
+                    #{s.datum.toString()}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Váha (g)</f:facet>
+                    <f:facet name="header">Váha (kg)</f:facet>
                     #{s.vaha}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Bílkoviny (g)</f:facet>
+                    <f:facet name="header">Poznámka</f:facet>
                     #{s.poznamka}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Operace</f:facet>
                     <h:form>
-                        <h:commandButton value="Smazat" action="#{statusBean.deleteStatus(s)}" />
+                        <h:commandButton value="Smazat status" action="#{statusBean.deleteStatus(s)}" />
                     </h:form>
                 </h:column>
             </h:dataTable>

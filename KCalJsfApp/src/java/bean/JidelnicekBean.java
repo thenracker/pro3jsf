@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,9 +25,12 @@ import javax.faces.context.FacesContext;
 public class JidelnicekBean {
 
     private JidelnicekDao jidelnicek;
+    private Date datumJidelnicku;
     
     public JidelnicekBean() {
         jidelnicek = new JidelnicekDao();
+        jidelnicek.setCas(new Date());
+        datumJidelnicku = new Date();
     }
     
     public List<JidelnicekDao> selectAllUserJidelnicek(){
@@ -34,8 +38,10 @@ public class JidelnicekBean {
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM Jidelnicek " //TO DO z vybraného data
-                    + " WHERE IDUzivatel = " + ((UzivatelDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user")).getIDUzivatel();
+            String sql = "SELECT * FROM Jidelnicek "
+                    + " WHERE DATEDIFF(DAY,Cas,'" + datumJidelnicku.toInstant() + "') = 0"
+                    + " AND IDUzivatel = " + ((UzivatelDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user")).getIDUzivatel()
+                    + ";";
             ResultSet rs = stm.executeQuery(sql);
             while(rs.next()){
                 jidelnicek.add(new JidelnicekDao(rs));
@@ -74,5 +80,13 @@ public class JidelnicekBean {
 
     public void setJidelnicek(JidelnicekDao jidelnicek) {
         this.jidelnicek = jidelnicek;
+    }
+
+    public Date getDatumJidelnicku() {
+        return datumJidelnicku;
+    }
+
+    public void setDatumJidelnicku(Date datumJidelnicku) {
+        this.datumJidelnicku = datumJidelnicku;
     }
 }
