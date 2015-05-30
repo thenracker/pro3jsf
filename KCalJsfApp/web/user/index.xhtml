@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" >
+    
     <h:head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,6 +19,9 @@
         #{accessController.hasUserPermission()}
         <div id="mainmenu">
             <ul>
+                <li>
+                    <a href="index.xhtml">Domů</a>
+                </li>
                 <li>
                     <a href="jidla.xhtml">Jídla</a>
                     <ul>
@@ -48,7 +53,73 @@
             </ul>
         </div>
         <div id="content">
-            <h1>VÍTEJTE PANE UŽIVATELI #{accessController.uzivatel.jmeno} #{accessController.uzivatel.prijmeni}</h1>
+            <h1>VÍTEJTE UŽIVATELI #{uzivatelBean.uzivatel.jmeno} #{uzivatelBean.uzivatel.prijmeni}</h1>
+            <h2>Co lze provádět v naší aplikaci?</h2>
+            <p>V naší aplikaci máte možnost zaznamenávat si pečlivě všechna svá zkonzumovaná jídla. Na základě
+            toho, lze zjistit, kolik jste v jednotlivých dnech celkově přijmuli kalorií.
+            </p>
+            <h2>Přehledy</h2>
+            <h3>Dnešní příjem</h3>
+            <c:set var="suma" value="0" />
+            
+            <c:set var="sumaBilk" value="0" />
+            <c:set var="sumaSach" value="0" />
+            <c:set var="sumaCukr" value="0" />
+            <c:set var="sumaTuky" value="0" />
+            
+            <c:set var="sumaSnid" value="0" />
+            <c:set var="sumaDopo" value="0" />
+            <c:set var="sumaObed" value="0" />
+            <c:set var="sumaOdpo" value="0" />
+            <c:set var="sumaVec1" value="0" />
+            <c:set var="sumaVec2" value="0" />
+            
+            <c:forEach items="#{jidelnicekBean.selectAllUserJidelnicek()}" var="j">
+                <c:set var="suma" value="${suma + j.jidloDao.kcal}" />
+                <c:set var="sumaBilk" value="${sumaBilk + j.jidloDao.bilkoviny}" />
+                <c:set var="sumaSach" value="${sumaSach + j.jidloDao.sacharidy}" />
+                <c:set var="sumaCukr" value="${sumaCukr + j.jidloDao.cukry}" />
+                <c:set var="sumaTuky" value="${sumaTuky + j.jidloDao.tuky}" />
+                
+                <c:if test="${j.typ == 'Snídaně'}" >
+                    <c:set var="sumaSnid" value="${sumaSnid += j.jidloDao.kcal}" />
+                </c:if>
+                <c:if test="${j.typ == 'Dopolední svačina'}">
+                    <c:set var="sumaDopo" value="${sumaDopo += j.jidloDao.kcal}" />
+                </c:if>
+                <c:if test="${j.typ == 'Oběd'}">
+                    <c:set var="sumaObed" value="${sumaObed += j.jidloDao.kcal}" />
+                </c:if>
+                <c:if test="${j.typ == 'Odpolední svačina'}">
+                    <c:set var="sumaOdpo" value="${sumaOdpo += j.jidloDao.kcal}" />
+                </c:if>
+                <c:if test="${j.typ == 'Večeře'}">
+                    <c:set var="sumaVec1" value="${sumaVec1 += j.jidloDao.kcal}" />
+                </c:if>
+                <c:if test="${j.typ == 'Druhá večeře'}">
+                    <c:set var="sumaVec2" value="${sumaVec2 += j.jidloDao.kcal}" />
+                </c:if>
+            </c:forEach>
+            <p>${suma} kCal</p>
+            
+            <h3>Přijem v nutričních hodnotách</h3>
+            <p>
+                BÍLKOVINY: <b>${sumaBilk} g</b> (tj. ${4*sumaBilk} kCal)<br />
+                SACHARIDY: <b>${sumaSach} g</b> (tj. ${4*sumaSach} kCal)<br />
+                (Z TOHO CUKRY): <b>${sumaCukr} g</b> (tj. ${4*sumaCukr} kCal)<br />
+                TUKY: <b>${sumaTuky} g</b> (tj. ${9*sumaTuky} kCal)<br />
+            </p>
+            
+            <h3>Příjem v jednotlivých částech dne</h3>
+            <p>
+                SNÍDANĚ: <b>${sumaSnid} kCal</b> z celkových ${suma}<br />
+                DOPOLEDNÍ SVAČINA: <b>${sumaDopo} kCal</b> z celkových ${suma}<br />
+                OBĚD: <b>${sumaObed} kCal</b> z celkových ${suma}<br />
+                ODPOLEDNÍ SVAČINA: <b>${sumaOdpo} kCal</b> z celkových ${suma}<br />
+                VEČEŘE: <b>${sumaVec1} kCal</b> z celkových ${suma}<br />
+                DRUHÁ VEČEŘE: <b>${sumaVec2} kCal</b> z celkových ${suma}
+            </p>
+            
         </div>
     </h:body>
 </html>

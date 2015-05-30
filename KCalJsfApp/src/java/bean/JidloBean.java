@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 /**
  *
@@ -33,6 +34,10 @@ public class JidloBean {
         filtrText = "";
     }
 
+    public void filtrTextChanged(ValueChangeEvent e){
+        filtrText = e.getNewValue().toString();
+    }
+    
     public JidloDao loadJidlo(){
         //nejdřív se volá setJidlo a nastaví se ID a podle toho se dotáhne zbytek
         try{

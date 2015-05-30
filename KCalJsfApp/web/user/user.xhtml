@@ -12,7 +12,7 @@
         <meta name="author" content="PetrAndVlado" />
         <link rel="icon" href="../../favicon.ico" />
         <link href="../../css/style.css" rel="stylesheet" />
-        <title>KCAL APP - Přidat jídlo do DB</title>
+        <title>KCAL APP - Uživatelský profil</title>
     
     </h:head>
     <h:body>
@@ -53,39 +53,35 @@
             </ul>
         </div>
         <div id="content">
-            <h2>Tabulka jídel</h2>
-            <h1>Přidat jídlo do jídelníčku</h1>
+            <h1>Uživatelský profil</h1>
+            
             <h:form>
                 <h:messages style="color: red"></h:messages>
 
-                <p>Typ jídla:</p>
-                <h:selectOneMenu value="#{jidelnicekBean.jidelnicek.typ}">
-                    <f:selectItem itemValue="Snídaně" itemLabel="Snídaně" />
-                    <f:selectItem itemValue="Dopolední svačina" itemLabel="Dopolední svačina" />
-                    <f:selectItem itemValue="Oběd" itemLabel="Oběd" />
-                    <f:selectItem itemValue="Odpolední svačina" itemLabel="Odpolední svačina" />
-                    <f:selectItem itemValue="Večeře" itemLabel="Večeře" />				
-                    <f:selectItem itemValue="Druhá večeře" itemLabel="Druhá večeře" />				
-                </h:selectOneMenu>
+                <p>Email (uživatelské jméno):</p>
+                <h:inputText required="true" value="#{uzivatelBean.uzivatel.email}" requiredMessage="Zadejte email" />
                 
-                <p>Jídlo:</p>
-                <h:selectOneMenu value="#{jidelnicekBean.jidelnicek.IDJidlo}">
-                    <c:forEach items="${jidloBean.allJidla}" var="j">
-                        <f:selectItem itemValue="${j.IDJidlo}" itemLabel="${j.nazev} (${j.vahaGramy}g)" />
-                    </c:forEach>
-                </h:selectOneMenu>
+                <p>Heslo:</p>
+                <h:inputSecret required="true" value="#{uzivatelBean.uzivatel.heslo}" 
+                               requiredMessage="Zadejte heslo" validatorMessage="Heslo musí mít min.8 znaků a musí obsahovat číslo">
+                    <f:validateRegex pattern="((?=.*\d).{8,50})" />
+                </h:inputSecret>
                 
-                <p>Poznámka:</p>
-                <h:inputText required="false" value="#{jidelnicekBean.jidelnicek.poznamka}" />
+                <p>Jméno:</p>
+                <h:inputText required="true" value="#{uzivatelBean.uzivatel.jmeno}" requiredMessage="Zadejte jméno" />
+                <p>Příjmení:</p>
+                <h:inputText required="true" value="#{uzivatelBean.uzivatel.prijmeni}" requiredMessage="Zadejte příjmení" />
+                <p>Telefon:</p>
+                <h:inputText required="false" value="#{uzivatelBean.uzivatel.telefon}" />
                 
-                <p>Datum:</p>
-                <h:inputText value="#{jidelnicekBean.jidelnicek.cas}"  id="datum" size="20" required="true" requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.2015 12:33)" >
-                    <f:convertDateTime pattern="d.M.yyyy' 'HH:mm" />	
+                <p>Datum narození:</p>
+                <h:inputText value="#{uzivatelBean.uzivatel.datumNarozeni}" required="true" requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.1975)" >
+                    <f:convertDateTime pattern="d.M.yyyy" />	
                 </h:inputText>
                 
                 <p></p>
-                <h:commandButton value="Uložit" action="#{jidelnicekBean.insertJidelnicek()}" />
-                <h:button value="Zpět na jídla" outcome="jidla" />
+                <h:commandButton value="Uložit" action="#{uzivatelBean.updateUzivatel()}" />
+                <h:button value="Zpět domů" outcome="index" />
             </h:form>
         </div>
     </h:body>

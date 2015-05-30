@@ -28,7 +28,9 @@ public class UzivatelBean{
     private UzivatelDao uzivatel;
     
     public UzivatelBean() {
-        uzivatel = new UzivatelDao();
+        uzivatel = (UzivatelDao) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        if(uzivatel == null)
+            uzivatel = new UzivatelDao();
     }
     
     public UzivatelDao loadUzivatel(){
@@ -83,19 +85,20 @@ public class UzivatelBean{
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
-            String sql = "UPDATE Uzivatel "
-                    + " SET " //TO DO
-                    + " WHERE Id = " + uzivatel.getIDUzivatel() + ";";
-            ResultSet rs = stm.executeQuery(sql);
-            if(rs.next()){
-                uzivatel = new UzivatelDao(rs);
-            }
-            else{
-                uzivatel = null;
-            }
+            String sql = "UPDATE Uzivatel SET "
+                    + " Email = '" + uzivatel.getEmail() + "'"
+                    + " , Heslo = '" + uzivatel.getHeslo() + "'"
+                    + " , Jmeno = '" + uzivatel.getJmeno() + "'"
+                    + " , Prijmeni = '" + uzivatel.getPrijmeni() + "'"
+                    + " , Telefon = '" + uzivatel.getTelefon() + "'"
+                    + " , DatumNarozeni = '" + uzivatel.getDatumNarozeni().toInstant() + "'"
+                    + " WHERE IDUzivatel = " + uzivatel.getIDUzivatel() + ";";
+            stm.execute(sql);
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Změny uloženy"));
         }
         catch(SQLException e){
             e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Nelze uložit změny"));
         } 
     }
     

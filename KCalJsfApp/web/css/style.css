@@ -28,15 +28,16 @@ body{
 #mainmenu ul li a, #mainmenu ul li ul{
     margin: 0;
     display: inline-block;
-    width: 150px; height: 48px;
+    width: 150px; 
+    height: 50px;
     background-color: black; color: white;
     text-decoration: none;
     line-height: 50px;
     text-align: center;
-    border-bottom: 2px solid black;
 }
 #mainmenu ul li a:hover{
-    background-color: white; color: black; 
+    background-color: white; 
+    color: black; 
 }
 
 #mainmenu ul li ul{
@@ -45,6 +46,9 @@ body{
 #mainmenu ul li:hover ul{
     display: block;
     position: absolute;
+}
+#mainmenu ul li ul li a{
+    box-shadow: 0px 1px 1px black;
 }
 
 #content{
@@ -56,11 +60,16 @@ table{
     border-collapse: collapse;
 }
 th{
-    padding: 5px;
+    padding: 10px;
     border-bottom: 3px double black;
+    background-color: dimgray;
+    color: white;
 }
 tr{
     border-bottom: 1px solid black;
+}
+tr:hover{
+    background-color: grey;
 }
 td{
     padding: 10px;

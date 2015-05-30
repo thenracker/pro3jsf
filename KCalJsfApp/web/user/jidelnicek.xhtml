@@ -19,6 +19,9 @@
         <div id="mainmenu">
             <ul>
                 <li>
+                    <a href="index.xhtml">Domů</a>
+                </li>
+                <li>
                     <a href="jidla.xhtml">Jídla</a>
                     <ul>
                         <li><a href="jidla.xhtml">Zobrazit jídla</a></li>
@@ -54,7 +57,7 @@
             <h:dataTable value="#{jidelnicekBean.selectAllUserJidelnicek()}" var="j" >
                 <f:facet name="header">
                     <h:outputText 
-                        value="JÍDLA ZE DNE #{jidelnicekBean.datumJidelnicku.date}.#{jidelnicekBean.datumJidelnicku.month}." />
+                        value="JÍDLA ZE DNE #{jidelnicekBean.datumJidelnicku.date}.#{jidelnicekBean.datumJidelnicku.month+1}." />
                 </f:facet>
                     
                 <h:column>
@@ -80,11 +83,13 @@
             </h:dataTable>
             
             <h:form>
-                <h:panelGrid id="panel" class="form" columns="3" border="0" cellpadding="10" cellspacing="1">
+                <h:panelGrid id="panel" class="form" columns="4" border="0" cellpadding="10" cellspacing="1">
                     <h:outputLabel value="Zobrazit jídelníček ze dne:" />
-                    <h:inputText value="#{jidelnicekBean.datumJidelnicku}"  id="datum" size="20" required="true" requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.2015)" >
-                        <f:convertDateTime pattern="d.M.yyyy" />	
-                    </h:inputText>
+                    <input type="date" value="#{jidelnicekBean.datumJidelnicku}" onchange="document.getElementById('j_idt23:datum').value = this.value; submit()" />
+                    <h:inputHidden value="#{jidelnicekBean.datumJidelnicku}"  id="datum" required="true" 
+                                 requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.2015)" >
+                        <f:convertDateTime pattern="yyyy-MM-dd" />	
+                    </h:inputHidden>
                     <h:message for="datum" style="color:red" />
                 </h:panelGrid>
             </h:form> 
