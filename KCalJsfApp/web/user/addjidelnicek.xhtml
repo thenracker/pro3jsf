@@ -56,7 +56,12 @@
             <h2>Tabulka jídel</h2>
             <h1>Přidat jídlo do jídelníčku</h1>
             <h:form>
-                <h:messages style="color: red"></h:messages>
+                <script type="text/javascript">
+                setTimeout(function(){
+                    document.getElementById('j_idt6:messages').style.color = 'white';
+                },2000);
+            </script>
+            <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />
 
                 <p>Typ jídla:</p>
                 <h:selectOneMenu value="#{jidelnicekBean.jidelnicek.typ}">

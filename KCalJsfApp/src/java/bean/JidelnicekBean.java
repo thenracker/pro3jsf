@@ -74,6 +74,21 @@ public class JidelnicekBean {
         } 
     }
 
+    public void deleteJidelnicek(JidelnicekDao j){
+       try{
+            Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
+            Statement stm = conn.createStatement();
+            String sql = "DELETE Jidelnicek"
+                    + " WHERE IDJidelnicek = " + j.getIDJidelnicek();
+            stm.execute(sql);
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Jídlo bylo smazáno"));
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Jídlo nelze smazat"));
+        }  
+    }
+    
     public JidelnicekDao getJidelnicek() {
         return jidelnicek;
     }

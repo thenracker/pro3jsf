@@ -56,7 +56,7 @@
             <h:dataTable value="#{statusBean.selectAllUserStatus()}" var="s">
                 <h:column>
                     <f:facet name="header">Datum</f:facet>
-                    #{s.datum.toString()}
+                    #{s.datum.toLocaleString()}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Váha (kg)</f:facet>
@@ -73,7 +73,12 @@
                     </h:form>
                 </h:column>
             </h:dataTable>
-            <h:messages style="color: red"></h:messages>
+            <script type="text/javascript">
+                setTimeout(function(){
+                    document.getElementById('messages').style.color = 'white';
+                },2000);
+            </script>
+            <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />
             <h:message for="good" style="color: green"></h:message>
             <h:message for="bad" style="color: red"></h:message>
         </div>

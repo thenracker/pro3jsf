@@ -30,7 +30,7 @@ public class JidelnicekDao {
         IDUzivatel = rs.getInt(2);
         IDJidlo = rs.getInt(3);
         Typ = rs.getString(4);
-        Cas = rs.getTimestamp(5);
+        Cas = new Date(rs.getTimestamp(5).getTime());
         Poznamka = rs.getString(6);
         JidloBean jb = new JidloBean();
         jb.getJidlo().setIDJidlo(IDJidlo);

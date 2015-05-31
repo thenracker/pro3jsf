@@ -28,7 +28,7 @@ public class StatusDao {
         IDStatus = rs.getInt("IDStatus");
         IDUzivatel = rs.getInt("IDUzivatel");
         Vaha = rs.getDouble("Vaha");
-        Datum = rs.getDate("Datum");
+        Datum = new Date(rs.getTimestamp("Datum").getTime());
         Poznamka = rs.getString("Poznamka");
     }
     

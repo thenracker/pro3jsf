@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -61,7 +62,7 @@ public class UzivatelBean{
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
-            String sql = "INSERT INTO Uzivatel (Jmeno,Prijmeni,Email,Heslo,Telefon,DatumNarozeni,IDFunkce)"
+            String sql = "INSERT INTO Uzivatel (Jmeno,Prijmeni,Email,Heslo,Telefon,DatumNarozeni,IDFunkce,PosledniLog)"
                     + " VALUES('"
                     + uzivatel.getJmeno() + "','"
                     + uzivatel.getPrijmeni() + "','"
@@ -69,7 +70,8 @@ public class UzivatelBean{
                     + uzivatel.getHeslo() + "','"
                     + uzivatel.getTelefon() + "','"
                     + uzivatel.getDatumNarozeni().toInstant() + "',"
-                    + "2"
+                    + "2,'"
+                    + new Date().toInstant() + "'"
                     + ");";
             if(stm.execute(sql))FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Úspěšně registrován"));
         }
@@ -92,6 +94,7 @@ public class UzivatelBean{
                     + " , Prijmeni = '" + uzivatel.getPrijmeni() + "'"
                     + " , Telefon = '" + uzivatel.getTelefon() + "'"
                     + " , DatumNarozeni = '" + uzivatel.getDatumNarozeni().toInstant() + "'"
+                    + " , PosledniLog = '" + uzivatel.getPosledniLog().toInstant() + "'"
                     + " WHERE IDUzivatel = " + uzivatel.getIDUzivatel() + ";";
             stm.execute(sql);
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Změny uloženy"));

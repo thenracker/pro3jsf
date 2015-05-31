@@ -7,7 +7,6 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -17,8 +16,7 @@ import java.util.Date;
 public class UzivatelDao {
     private int IDUzivatel, IDFunkce;
     private String Jmeno, Prijmeni, Email, Heslo, Telefon;
-    private Date DatumNarozeni;
-    private Timestamp PosledniLog;
+    private Date DatumNarozeni, PosledniLog;
     private boolean Potvrzen; 
 
     public UzivatelDao(){
@@ -33,9 +31,9 @@ public class UzivatelDao {
         Email = rs.getString(5);
         Heslo = rs.getString(6);
         Telefon = rs.getString(7);
-        DatumNarozeni = rs.getDate(8);
+        DatumNarozeni = new Date(rs.getTimestamp(8).getTime());
         Potvrzen = rs.getBoolean(9);
-        PosledniLog = rs.getTimestamp(10);
+        PosledniLog = new Date(rs.getTimestamp(10).getTime());
     }
 
     public int getIDUzivatel() {
@@ -102,11 +100,11 @@ public class UzivatelDao {
         this.DatumNarozeni = DatumNarozeni;
     }
 
-    public Timestamp getPosledniLog() {
+    public Date getPosledniLog() {
         return PosledniLog;
     }
 
-    public void setPosledniLog(Timestamp PosledniLog) {
+    public void setPosledniLog(Date PosledniLog) {
         this.PosledniLog = PosledniLog;
     }
 

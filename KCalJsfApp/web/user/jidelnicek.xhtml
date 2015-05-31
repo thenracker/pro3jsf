@@ -52,8 +52,14 @@
             </ul>
         </div>
         <div id="content">
-            <h2>Jídelníček</h2>       
-                
+            <h2>Jídelníček</h2>    
+            
+            <script type="text/javascript">
+                setTimeout(function(){
+                    document.getElementById('messages').style.color = 'white';
+                },2000);
+            </script>
+            <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />    
             <h:dataTable value="#{jidelnicekBean.selectAllUserJidelnicek()}" var="j" >
                 <f:facet name="header">
                     <h:outputText 
@@ -79,6 +85,12 @@
                 <h:column>
                     <f:facet name="header">Poznámka</f:facet>
                     #{j.poznamka}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Operace</f:facet>
+                    <h:form>
+                        <h:commandButton value="Smazat" onclick="confirm('Opravdu smazat jídlo?');" action="#{jidelnicekBean.deleteJidelnicek(j)}" />
+                    </h:form>
                 </h:column>
             </h:dataTable>
             

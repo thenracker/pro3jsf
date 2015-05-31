@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Timestamp;
+import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -57,8 +58,9 @@ public class AccessControllerBean {
         
         
         ub.setUzivatel(uzivatel);
-        uzivatel = ub.loadUzivatel();
-        if(uzivatel != null){
+        UzivatelDao u = ub.loadUzivatel();
+        if(u != null){
+            uzivatel = u;
             try {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", uzivatel);
                 if(uzivatel.getIDFunkce() == 1) FacesContext.getCurrentInstance().getExternalContext().redirect("./admin/index.xhtml");   
@@ -73,7 +75,7 @@ public class AccessControllerBean {
         //Následující řádek asi není třeba :) bikós of sešnskoup
         //uzivatel = (UzivatelDao) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
         
-        uzivatel.setPosledniLog(new Timestamp(System.currentTimeMillis())); 
+        uzivatel.setPosledniLog(new Date()); 
         ub.setUzivatel(uzivatel);
         ub.updateUzivatel();
         
