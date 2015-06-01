@@ -52,14 +52,16 @@
             </ul>
         </div>
         <div id="content">
-            <h2>Tabulka jídel</h2>
+            <h1>Tabulka jídel</h1>
             
             <script type="text/javascript">
                 function clear(){
                     document.getElementById('filtr').value = '';
                 }
             </script>
-            
+            <p>
+                <h:button outcome="addjidlo" value="Přidat jídlo do systému" />
+            </p>
             <h:form>
                 <!-- Vteřinu po dopsání se vyhledá :3 -->
                 <h:panelGrid id="panel" class="form" columns="3" border="0" cellpadding="10" cellspacing="5">
@@ -70,7 +72,6 @@
                     <h:button onclick="clear();" value="Vyčistit" />
                 </h:panelGrid>
             </h:form>
-            
             
             <h:dataTable value="#{jidloBean.allJidla}" var="j">
                 <h:column>
@@ -104,10 +105,14 @@
                 <h:column>
                     <f:facet name="header">Operace</f:facet>
                     <h:form>
+                        <h:commandButton value="Přidat do jídelníčku" action="#{accessController.setEditedJidlo(j)}" />
                         <h:commandButton value="Smazat" onclick="confirm('Opravdu smazat jídlo?');" action="#{jidloBean.deleteJidlo(j)}" />
                     </h:form>
                 </h:column>
           </h:dataTable>
+            <div id="footer">
+                <p>© 2015 PetrWeissar, VladimirTichy - All Rights Reserved.</p>
+            </div>
         </div>
     </h:body>
 </html>

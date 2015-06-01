@@ -52,7 +52,10 @@
             </ul>
         </div>
         <div id="content">
-            <h2>Tabulka statusů</h2>
+            <h1>Tabulka statusů</h1>
+            <p>
+                <h:button outcome="addstatus" value="Přidat nový status" />
+            </p>
             <h:dataTable value="#{statusBean.selectAllUserStatus()}" var="s">
                 <h:column>
                     <f:facet name="header">Datum</f:facet>
@@ -81,6 +84,9 @@
             <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />
             <h:message for="good" style="color: green"></h:message>
             <h:message for="bad" style="color: red"></h:message>
+            <div id="footer">
+                <p>© 2015 PetrWeissar, VladimirTichy - All Rights Reserved.</p>
+            </div>
         </div>
     </h:body>
 </html>

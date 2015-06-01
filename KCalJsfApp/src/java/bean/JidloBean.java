@@ -118,6 +118,7 @@ public class JidloBean {
                     + " WHERE IDJidlo = " + jidlo.getIDJidlo() + ";";
             stm.execute(sql);
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Změny uloženy"));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("jidlo",new JidloDao());
         }
         catch(SQLException e){
             e.printStackTrace();

@@ -52,7 +52,10 @@
             </ul>
         </div>
         <div id="content">
-            <h2>Jídelníček</h2>    
+            <h1>Jídelníček</h1>    
+            <p>
+                <h:button outcome="addjidelnicek" value="Přidat jídlo do jídelníčku" />
+            </p>
             
             <script type="text/javascript">
                 setTimeout(function(){
@@ -94,17 +97,34 @@
                 </h:column>
             </h:dataTable>
             
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+                $('[id^="datum"]').val(document.getElementById('inputDate'));
+            </script>
+            
+            <script type="text/javascript">
+                function changeDate(){
+                    var el = document.querySelectorAll('[name^=datum]');
+                    
+                    for(var e in el){
+                        e.value = document.getElementById('inputDate').value;
+                    }
+                }
+            </script>
+            
             <h:form>
                 <h:panelGrid id="panel" class="form" columns="4" border="0" cellpadding="10" cellspacing="1">
                     <h:outputLabel value="Zobrazit jídelníček ze dne:" />
-                    <input type="date" value="#{jidelnicekBean.datumJidelnicku}" onchange="document.getElementById('j_idt23:datum').value = this.value; submit()" />
-                    <h:inputHidden value="#{jidelnicekBean.datumJidelnicku}"  id="datum" required="true" 
+                    <input id="inputDate" type="date" onchange="changeDate()"  />
+                    <h:inputText value=""  id="datum" required="true" 
                                  requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.2015)" >
-                        <f:convertDateTime pattern="yyyy-MM-dd" />	
-                    </h:inputHidden>
+                        <!--<f:convertDateTime pattern="yyyy-MM-dd" />	-->
+                    </h:inputText>
                     <h:message for="datum" style="color:red" />
                 </h:panelGrid>
             </h:form> 
+            <div id="footer">
+                <p>© 2015 PetrWeissar, VladimirTichy - All Rights Reserved.</p>
+            </div>
         </div>
     </h:body>
 </html>

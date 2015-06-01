@@ -52,8 +52,7 @@
             </ul>
         </div>
         <div id="content">
-            <h2>Tabulka jídel</h2>
-            <h1>Přidat jídlo do DB</h1>
+            <h1>Přidat jídlo do systému</h1>
             <h:form>
                 <script type="text/javascript">
                 setTimeout(function(){
@@ -82,6 +81,9 @@
                 <h:commandButton value="Uložit" action="#{jidloBean.insertJidlo()}" />
                 <h:button value="Zpět na jídla" outcome="jidla" />
             </h:form>
+            <div id="footer">
+                <p>© 2015 PetrWeissar, VladimirTichy - All Rights Reserved.</p>
+            </div>
         </div>
     </h:body>
 </html>

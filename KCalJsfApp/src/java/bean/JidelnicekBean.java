@@ -6,6 +6,7 @@
 package bean;
 
 import dao.JidelnicekDao;
+import dao.JidloDao;
 import dao.UzivatelDao;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -31,6 +32,9 @@ public class JidelnicekBean {
         jidelnicek = new JidelnicekDao();
         jidelnicek.setCas(new Date());
         datumJidelnicku = new Date();
+        JidloDao j = (JidloDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("jidlo");
+        if(j.getIDJidlo() > 0)
+            jidelnicek.setIDJidlo(j.getIDJidlo());
     }
     
     public List<JidelnicekDao> selectAllUserJidelnicek(){
@@ -67,6 +71,7 @@ public class JidelnicekBean {
                     + ");";
             stm.execute(sql);
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Jídlo bylo úspěšně přidáno"));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("jidlo",new JidloDao());
         }
         catch(SQLException e){
             e.printStackTrace();

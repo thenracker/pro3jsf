@@ -1,12 +1,14 @@
+/*BODY AND MAIN MENU*/
 body{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    background-color: snow;
 }
 #mainmenu{
     margin: 0; padding: 0;
     height: 50px;
-    background-color: black;
+    background-color: lightseagreen;
     font-variant: small-caps;
 }
 #mainmenu.admin{
@@ -19,9 +21,9 @@ body{
     width: 1000px;
     height: 50px;
     display: block;
+    list-style-type: none;
 }
 #mainmenu ul li{
-    list-style-type: none;
     display: inline-block;
     max-height: 50px;
 }
@@ -30,7 +32,7 @@ body{
     display: inline-block;
     width: 150px; 
     height: 50px;
-    background-color: black; color: white;
+    background-color: lightseagreen; color: white;
     text-decoration: none;
     line-height: 50px;
     text-align: center;
@@ -53,26 +55,51 @@ body{
 #mainmenu ul li ul li a{
     box-shadow: 0px 1px 1px black;
 }
-
+/*CONTENT AND FOOTER*/
 #content{
     margin: 0 auto 0 auto;
     width: 1000px;
+    padding: 25px;
+    background-color: white;
+    box-shadow: 0px 1px 2px black;
+}
+#footer{
+    clear: both;
+    display: block;
+    margin: 50px -25px -25px -25px; 
+    padding: 0 25px 0 25px;
+    height: 40px;
+    line-height: 40px;
+    width: 1000px;
+    background-color: lightseagreen;
+    font-variant: small-caps;
 }
 
+/*FORMS*/
+form p{
+    font-weight: bold;
+    color: mediumturquoise;
+}
+
+/*TABLES*/
 table{
     border-collapse: collapse;
+    width: 100%;
+}
+table.form{
+    width: auto;
 }
 th{
     padding: 10px;
     border-bottom: 3px double black;
-    background-color: dimgray;
+    background-color: lightseagreen;
     color: white;
 }
 tr{
     border-bottom: 1px solid black;
 }
 tr:hover{
-    background-color: grey;
+    background-color: mediumturquoise;
 }
 td{
     padding: 10px;
@@ -82,7 +109,11 @@ td{
 .form tr{
     border: none;
 }
+.form tr:hover{
+    background-color: white;
+}
 
+/*RESPONSIVE*/
 @media (max-width : 1000px)
 {
  #content{

@@ -53,7 +53,6 @@
             </ul>
         </div>
         <div id="content">
-            <h2>Tabulka jídel</h2>
             <h1>Přidat jídlo do jídelníčku</h1>
             <h:form>
                 <script type="text/javascript">
@@ -72,6 +71,11 @@
                     <f:selectItem itemValue="Večeře" itemLabel="Večeře" />				
                     <f:selectItem itemValue="Druhá večeře" itemLabel="Druhá večeře" />				
                 </h:selectOneMenu>
+                
+                <!-- pokud jsme si sem jídlo poslali -->
+                <c:if test="${accessController.editedJidlo.IDJidlo > 0}">
+                    #{jidelnicekBean.jidelnicek.setIDJidlo(accessController.editedJidlo.IDJidlo)}
+                </c:if>
                 
                 <p>Jídlo:</p>
                 <h:selectOneMenu value="#{jidelnicekBean.jidelnicek.IDJidlo}">
@@ -92,6 +96,9 @@
                 <h:commandButton value="Uložit" action="#{jidelnicekBean.insertJidelnicek()}" />
                 <h:button value="Zpět na jídla" outcome="jidla" />
             </h:form>
+            <div id="footer">
+                <p>© 2015 PetrWeissar, VladimirTichy - All Rights Reserved.</p>
+            </div>
         </div>
     </h:body>
 </html>

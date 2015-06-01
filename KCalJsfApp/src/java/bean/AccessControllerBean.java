@@ -27,7 +27,6 @@ public class AccessControllerBean {
     private UzivatelDao uzivatel;
     private UzivatelBean ub;
     
-    private JidloDao editedJidlo;
     private UzivatelDao editedUzivatel;
     
     public AccessControllerBean() {
@@ -38,6 +37,9 @@ public class AccessControllerBean {
         getConnectionMS();
         if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn") == null)
             getConnectionPOSTGRE();
+        
+        //Pro pozdější práci s jídly
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("jidlo",new JidloDao());
     }
     
     //permission methods - na začátku každý xhtml
@@ -133,13 +135,19 @@ public class AccessControllerBean {
     
     //PROMĚNNÉ POMOCNÉ PRO EDITACI CIZÍCH OBJEKTŮ
     public JidloDao getEditedJidlo() {
-        return editedJidlo;
+        return (JidloDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("jidlo");
     }
 
     public void setEditedJidlo(JidloDao editedJidlo) {
-        this.editedJidlo = editedJidlo;
+        
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("jidlo",editedJidlo);
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("editjidlo.xhtml");
+            //pokud uživatel zavolá tuto funkci, chce přidat jídlo do jídelníčku
+            if(uzivatel.getIDFunkce() == 2)
+                FacesContext.getCurrentInstance().getExternalContext().redirect("addjidelnicek.xhtml");
+            //pokud admin zavolá tuto funkci, chce jídlo upravovat
+            if(uzivatel.getIDFunkce() == 1)
+                FacesContext.getCurrentInstance().getExternalContext().redirect("editjidlo.xhtml");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
