@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Application Jsf kCal" />
+        <meta name="author" content="PetrAndVlado" />
+        <link rel="icon" href="../../favicon.ico" />
+        <link href="../../css/style.css" rel="stylesheet" />
+        <title>KCAL APP - Výpis jídel</title>
+    
+    </h:head>
+    <h:body>
+        #{accessController.hasAdminPermission()}
+        <div id="mainmenu" class="admin">
+            <ul>
+                <li>
+                    <a href="index.xhtml">Domů</a>
+                </li>
+                <li>
+                    <a href="jidla.xhtml">Jídla</a>
+                    <ul>
+                        <li><a href="jidla.xhtml">Správa jídel</a></li>
+                        <li><a href="addjidlo.xhtml">Přidat jídlo</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="uzivatele.xhtml">Uživatelé</a>
+                    <ul>
+                        <li><a href="uzivatele.xhtml">Správa uživatelů</a></li>
+                        <li><a href="edituzivatel.xhtml">Upravit uživatele</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="user.xhtml">Uživatel</a>
+                    <ul>
+                        <li><a href="logout.xhtml" onclick="confirm('Opravdu se chcete odhlásit?')">Odhlásit se</a></li>
+                        <li><a href="user.xhtml">Profil</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+            <h2>Tabulka jídel</h2>
+            
+            <script type="text/javascript">
+                function clear(){
+                    document.getElementById('filtr').value = '';
+                }
+            </script>
+            
+            <h:form>
+                <!-- Vteřinu po dopsání se vyhledá :3 -->
+                <h:panelGrid id="panel" class="form" columns="3" border="0" cellpadding="10" cellspacing="5">
+                    <h:outputLabel value="Filtrovat jídla dle slova v názvu" />
+                    <h:inputText id="filtr" onblur="submit()" autocomplete="true" onclick="this.value='';" 
+                                 value="#{jidloBean.filtrText}" required="false" valueChangeListener="#{jidloBean.filtrTextChanged}"
+                                 onkeyup="setTimeout(function(){submit();}, 1000);" /> 
+                    <h:button onclick="clear();" value="Vyčistit" />
+                </h:panelGrid>
+            </h:form>
+            
+            <script type="text/javascript">
+                setTimeout(function(){
+                    document.getElementById('messages').style.color = 'white';
+                },2000);
+            </script>
+            <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />
+            
+            <h:dataTable value="#{jidloBean.allJidla}" var="j">
+                <h:column>
+                    <f:facet name="header">Název, Popis</f:facet>
+                    #{j.nazev}<c:if test="${j.popis.length() > 0}">, #{j.popis}</c:if>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Váha (g)</f:facet>
+                    #{j.vahaGramy}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Bílkoviny (g)</f:facet>
+                    #{j.bilkoviny}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Tuky (g)</f:facet>
+                    #{j.tuky}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Sacharidy (g)</f:facet>
+                    #{j.sacharidy}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Cukry (g)</f:facet>
+                    #{j.cukry}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">kCal</f:facet>
+                    #{j.kcal}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Operace</f:facet>
+                    <h:form>
+                        <h:commandButton value="Upravit" action="#{accessController.setEditedJidlo(j)}" />
+                        <h:commandButton value="Smazat" onclick="confirm('Opravdu smazat jídlo?');" action="#{jidloBean.deleteJidlo(j)}" />
+                    </h:form>
+                </h:column>
+          </h:dataTable>
+        </div>
+    </h:body>
+</html>
+

@@ -6,12 +6,15 @@
 package bean;
 
 import dao.JidloDao;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -98,6 +101,30 @@ public class JidloBean {
         }  
     }
     
+    public void updateJidlo(){
+        //Nejdřív se volá setUzivatel a pak update.. 
+        try{
+            Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
+            Statement stm = conn.createStatement();
+            String sql = "UPDATE Jidlo SET "
+                    + " Nazev = '" + jidlo.getNazev() + "'"
+                    + " , Popis = '" + jidlo.getPopis() + "'"
+                    + " , VahaGramy = " + jidlo.getVahaGramy()
+                    + " , Bilkoviny = " + jidlo.getBilkoviny()
+                    + " , Tuky = " + jidlo.getTuky()
+                    + " , Sacharidy = " + jidlo.getSacharidy()
+                    + " , Cukry = " + jidlo.getCukry()
+                    + " , Kcal = " + jidlo.getKcal()
+                    + " WHERE IDJidlo = " + jidlo.getIDJidlo() + ";";
+            stm.execute(sql);
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Změny uloženy"));
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Nelze uložit změny"));
+        } 
+    }
+    
     public List<JidloDao> getAllJidla(){
         List<JidloDao> jidla = new ArrayList<JidloDao>();
         
@@ -119,17 +146,21 @@ public class JidloBean {
 
         return jidla;
     }
+    //fce která slouží pro přesměrování, když by se náhodou něco zesralo
+    public void noJidloRedirectReport(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("jidla.xhtml");
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Nebylo vybráno žádné jídlo!"));
+        } catch (IOException ex) {
+            Logger.getLogger(JidloBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
-    /**
-     * @return the jidlo
-     */
+    //GETTERS & SETTERS
     public JidloDao getJidlo() {
         return jidlo;
     }
 
-    /**
-     * @param jidlo the jidlo to set
-     */
     public void setJidlo(JidloDao jidlo) {
         this.jidlo = jidlo;
     }

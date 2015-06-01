@@ -1,8 +1,8 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,12 +11,24 @@
         <meta name="author" content="PetrAndVlado" />
         <link rel="icon" href="../../favicon.ico" />
         <link href="../../css/style.css" rel="stylesheet" />
-        <title>KCAL APP - Přidat jídlo do systému</title>
+        <title>KCAL APP - Úprava jídla</title>
     
     </h:head>
-    <h:body>
-        #{accessController.hasUserPermission()}
-        <div id="mainmenu">
+    <body>
+        #{accessController.hasAdminPermission()}
+        <!-- Těžkopádnější způsob, jak do jidlaBean natáhnout jídlo, který potřebujeme :/ -->
+        <c:if test="#{jidloBean.jidlo.IDJidlo == 0}">
+            <c:choose>
+                <c:when test="${accessController.editedJidlo == null}">
+                    #{jidloBean.noJidloRedirectReport()}
+                </c:when>
+                <c:when test="${accessController.editedJidlo != null}">
+                    #{jidloBean.setJidlo(accessController.editedJidlo)}
+                </c:when>
+            </c:choose>
+        </c:if>
+        
+        <div id="mainmenu" class="admin">
             <ul>
                 <li>
                     <a href="index.xhtml">Domů</a>
@@ -24,22 +36,15 @@
                 <li>
                     <a href="jidla.xhtml">Jídla</a>
                     <ul>
-                        <li><a href="jidla.xhtml">Zobrazit jídla</a></li>
+                        <li><a href="jidla.xhtml">Správa jídel</a></li>
                         <li><a href="addjidlo.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="jidelnicek.xhtml">Můj jídelníček</a>
+                    <a href="uzivatele.xhtml">Uživatelé</a>
                     <ul>
-                        <li><a href="jidelnicek.xhtml">Zobrazit jídelníček</a></li>
-                        <li><a href="addjidelnicek.xhtml">Přidat jídlo</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="status.xhtml">Status</a>
-                    <ul>
-                        <li><a href="status.xhtml">Zobrazit status</a></li>
-                        <li><a href="addstatus.xhtml">Přidat status</a></li>
+                        <li><a href="uzivatele.xhtml">Správa uživatelů</a></li>
+                        <li><a href="edituzivatel.xhtml">Upravit uživatele</a></li>
                     </ul>
                 </li>
                 <li>
@@ -52,16 +57,16 @@
             </ul>
         </div>
         <div id="content">
-            <h2>Tabulka jídel</h2>
-            <h1>Přidat jídlo do DB</h1>
-            <h:form>
-                <script type="text/javascript">
+            <script type="text/javascript">
                 setTimeout(function(){
-                    document.getElementById('j_idt6:messages').style.color = 'white';
+                    document.getElementById('messages').style.color = 'white';
                 },2000);
                 </script>
                 <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />
-
+            
+            <h:form>
+                <h:inputHidden value="#{jidloBean.jidlo.IDJidlo}" />
+                
                 <p>Název:</p>
                 <h:inputText required="true" value="#{jidloBean.jidlo.nazev}" requiredMessage="Zadejte název" />
                 <p>Popis:</p>
@@ -79,10 +84,10 @@
                 <p>Tuky (g):</p>
                 <h:inputText converter="javax.faces.Double" required="false" value="#{jidloBean.jidlo.tuky}" converterMessage="Tuky musí být číslo" />
                 <p></p>
-                <h:commandButton value="Uložit" action="#{jidloBean.insertJidlo()}" />
+                <h:commandButton value="Uložit" action="#{jidloBean.updateJidlo()}" />
                 <h:button value="Zpět na jídla" outcome="jidla" />
             </h:form>
+            
         </div>
-    </h:body>
+    </body>
 </html>
-

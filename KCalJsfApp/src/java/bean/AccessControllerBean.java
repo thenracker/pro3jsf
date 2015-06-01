@@ -5,11 +5,11 @@
  */
 package bean;
 
+import dao.JidloDao;
 import dao.UzivatelDao;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Timestamp;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -26,6 +26,9 @@ public class AccessControllerBean {
     //logged user
     private UzivatelDao uzivatel;
     private UzivatelBean ub;
+    
+    private JidloDao editedJidlo;
+    private UzivatelDao editedUzivatel;
     
     public AccessControllerBean() {
         uzivatel = new UzivatelDao();
@@ -119,17 +122,34 @@ public class AccessControllerBean {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("conn", conn);
     }
 
-    /**
-     * @return the uzivatel
-     */
     public UzivatelDao getUzivatel() {
         return uzivatel;
     }
 
-    /**
-     * @param uzivatel the uzivatel to set
-     */
     public void setUzivatel(UzivatelDao uzivatel) {
         this.uzivatel = uzivatel;
+    }
+
+    
+    //PROMĚNNÉ POMOCNÉ PRO EDITACI CIZÍCH OBJEKTŮ
+    public JidloDao getEditedJidlo() {
+        return editedJidlo;
+    }
+
+    public void setEditedJidlo(JidloDao editedJidlo) {
+        this.editedJidlo = editedJidlo;
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("editjidlo.xhtml");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public UzivatelDao getEditedUzivatel() {
+        return editedUzivatel;
+    }
+
+    public void setEditedUzivatel(UzivatelDao editedUzivatel) {
+        this.editedUzivatel = editedUzivatel;
     }
 }

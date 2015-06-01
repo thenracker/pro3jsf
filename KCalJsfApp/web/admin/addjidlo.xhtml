@@ -15,8 +15,8 @@
     
     </h:head>
     <h:body>
-        #{accessController.hasUserPermission()}
-        <div id="mainmenu">
+        #{accessController.hasAdminPermission()}
+        <div id="mainmenu" class="admin">
             <ul>
                 <li>
                     <a href="index.xhtml">Domů</a>
@@ -24,22 +24,15 @@
                 <li>
                     <a href="jidla.xhtml">Jídla</a>
                     <ul>
-                        <li><a href="jidla.xhtml">Zobrazit jídla</a></li>
+                        <li><a href="jidla.xhtml">Správa jídel</a></li>
                         <li><a href="addjidlo.xhtml">Přidat jídlo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="jidelnicek.xhtml">Můj jídelníček</a>
+                    <a href="uzivatele.xhtml">Uživatelé</a>
                     <ul>
-                        <li><a href="jidelnicek.xhtml">Zobrazit jídelníček</a></li>
-                        <li><a href="addjidelnicek.xhtml">Přidat jídlo</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="status.xhtml">Status</a>
-                    <ul>
-                        <li><a href="status.xhtml">Zobrazit status</a></li>
-                        <li><a href="addstatus.xhtml">Přidat status</a></li>
+                        <li><a href="uzivatele.xhtml">Správa uživatelů</a></li>
+                        <li><a href="edituzivatel.xhtml">Upravit uživatele</a></li>
                     </ul>
                 </li>
                 <li>

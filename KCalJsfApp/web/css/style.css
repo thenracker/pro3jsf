@@ -35,6 +35,9 @@ body{
     line-height: 50px;
     text-align: center;
 }
+#mainmenu.admin ul li a, #mainmenu.admin ul li ul{
+    background-color: maroon; color: white;
+}
 #mainmenu ul li a:hover{
     background-color: white; 
     color: black; 

@@ -1,8 +1,7 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,11 +9,11 @@
         <meta name="description" content="Application Jsf kCal" />
         <meta name="author" content="PetrAndVlado" />
         <link rel="icon" href="../../favicon.ico" />
-        <link href="../css/style.css" rel="stylesheet" />
-        <title>KCAL APP - Domovská Stránka</title>
+        <link href="../../css/style.css" rel="stylesheet" />
+        <title>KCAL APP - Úprava uživatele</title>
     
     </h:head>
-    <h:body>
+    <body>
         #{accessController.hasAdminPermission()}
         <div id="mainmenu" class="admin">
             <ul>
@@ -45,22 +44,7 @@
             </ul>
         </div>
         <div id="content">
-            <h1>VÍTEJTE PANE ADMINE #{accessController.uzivatel.jmeno} #{accessController.uzivatel.prijmeni}</h1>
-            <table>
-                <tr>
-                    <td>Jméno</td>
-                    <td>Příjmení</td>
-                    <td>Email</td>                
-                </tr>
-                <c:forEach var="uzivatel" items="#{uzivatelBean.uzivatele}">
-                    <tr>
-                        <td>#{uzivatel.jmeno}</td>
-                        <td>#{uzivatel.prijmeni}</td>
-                        <td>#{uzivatel.email}</td>
-                    </tr>
-                </c:forEach>
-            </table>
+            <p>Nějakej select box tu bude muset bejt ze kterýho se vybere uživatel, kterej se pak zobrazí ve formuláři níže ;)</p>
         </div>
-    </h:body>
+    </body>
 </html>
-
