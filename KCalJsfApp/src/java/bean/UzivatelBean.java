@@ -88,6 +88,7 @@ public class UzivatelBean{
     
     public void updateUzivatel(){
         //Nejdřív se volá setUzivatel a pak update.. 
+        uzivatel.setPosledniLog(new Date());
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
@@ -103,8 +104,8 @@ public class UzivatelBean{
                     + " , Potvrzen = '" + (uzivatel.isPotvrzen() ? 1 : 0) + "'"
                     + " WHERE IDUzivatel = " + uzivatel.getIDUzivatel() + ";";
             stm.execute(sql);
-            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Změny uloženy"));
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("editedUser",uzivatel);
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Změny uloženy"));
         }
         catch(SQLException e){
             e.printStackTrace();

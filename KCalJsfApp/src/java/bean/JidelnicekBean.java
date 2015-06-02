@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,7 @@ public class JidelnicekBean {
         jidelnicek = new JidelnicekDao();
         jidelnicek.setCas(new Date());
         datumJidelnicku = new Date();
+        
         JidloDao j = (JidloDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("jidlo");
         if(j.getIDJidlo() > 0)
             jidelnicek.setIDJidlo(j.getIDJidlo());
@@ -47,11 +49,12 @@ public class JidelnicekBean {
     
     public List<JidelnicekDao> selectAllUserJidelnicek(){
         List<JidelnicekDao> jidelnicek = new ArrayList<JidelnicekDao>();
+        
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
             String sql = "SELECT * FROM Jidelnicek "
-                    + " WHERE DATEDIFF(DAY,Cas,'" + datumJidelnicku.toInstant() + "') = 0"
+                    + " WHERE DATEDIFF(DAY,Cas,'" + datumJidelnicku.toInstant().plus(Duration.ofHours(2)) + "') = 0"
                     + " AND IDUzivatel = " + ((UzivatelDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user")).getIDUzivatel()
                     + ";";
             ResultSet rs = stm.executeQuery(sql);
