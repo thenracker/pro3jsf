@@ -18,7 +18,6 @@
     <h:body>
         #{accessController.hasAdminPermission()}
         <!-- NAČÍST DO UZIVATELSKE BEANY SPRÁVNÉHO UŽIVATELE -->
-        #{uzivatelBean.loadLoggedUser()}
         <div id="mainmenu" class="admin">
             <ul>
                 <li>
@@ -33,10 +32,6 @@
                 </li>
                 <li>
                     <a href="uzivatele.xhtml">Uživatelé</a>
-                    <ul>
-                        <li><a href="uzivatele.xhtml">Správa uživatelů</a></li>
-                        <li><a href="edituzivatel.xhtml">Upravit uživatele</a></li>
-                    </ul>
                 </li>
                 <li>
                     <a href="user.xhtml">Profil</a>
@@ -57,31 +52,39 @@
                 </script>
                 <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />
 
+                <h:inputHidden value="#{accessController.uzivatel.IDUzivatel}"/>
+                <h:inputHidden value="#{accessController.uzivatel.potvrzen}" />
+                <h:inputHidden value="#{accessController.uzivatel.IDFunkce}" />
+                <h:inputHidden value="#{accessController.uzivatel.posledniLog}">
+                    <f:convertDateTime pattern="d.M.yyyy HH:mm" />	                    
+                </h:inputHidden>
+
+                
                 <p>Email (uživatelské jméno):</p>
-                <h:inputText required="true" value="#{uzivatelBean.uzivatel.email}" requiredMessage="Zadejte email" />
+                <h:inputText required="true" value="#{accessController.uzivatel.email}" requiredMessage="Zadejte email" />
                 
                 <p>Heslo:</p>
-                <h:inputSecret required="true" value="#{uzivatelBean.uzivatel.heslo}" 
+                <h:inputSecret required="true" value="#{accessController.uzivatel.heslo}" redisplay="true" 
                                requiredMessage="Zadejte heslo" validatorMessage="Heslo musí mít min.8 znaků a musí obsahovat číslo">
                     <f:validateRegex pattern="((?=.*\d).{8,50})" />
                 </h:inputSecret>
                 
                 <p>Jméno:</p>
-                <h:inputText required="true" value="#{uzivatelBean.uzivatel.jmeno}" requiredMessage="Zadejte jméno" />
+                <h:inputText required="true" value="#{accessController.uzivatel.jmeno}" requiredMessage="Zadejte jméno" />
                 <p>Příjmení:</p>
-                <h:inputText required="true" value="#{uzivatelBean.uzivatel.prijmeni}" requiredMessage="Zadejte příjmení" />
+                <h:inputText required="true" value="#{accessController.uzivatel.prijmeni}" requiredMessage="Zadejte příjmení" />
                 <p>Telefon:</p>
-                <h:inputText required="false" value="#{uzivatelBean.uzivatel.telefon}" />
+                <h:inputText required="false" value="#{accessController.uzivatel.telefon}" />
                 
                 <p>Datum narození:</p>
-                <h:inputText value="#{uzivatelBean.uzivatel.datumNarozeni}" required="true" requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.1975)" >
+                <h:inputText value="#{accessController.uzivatel.datumNarozeni}" required="true" requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.1975)" >
                     <f:convertDateTime pattern="d.M.yyyy" />	
                 </h:inputText>
                 
-                <p>Poslední návštěva: #{uzivatelBean.uzivatel.posledniLog.toLocaleString()}</p>
+                <p>Poslední návštěva: #{accessController.uzivatel.posledniLog.toLocaleString()}</p>
                 
                 <p></p>
-                <h:commandButton value="Uložit" action="#{uzivatelBean.updateUzivatel()}" />
+                <h:commandButton value="Uložit" action="#{accessController.ub.updateUzivatel()}" />
                 <h:button value="Zpět domů" outcome="index" />
             </h:form>
         </div>

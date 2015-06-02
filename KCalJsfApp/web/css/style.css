@@ -11,10 +11,7 @@ body{
     background-color: lightseagreen;
     font-variant: small-caps;
 }
-#mainmenu.admin{
-    background-color: skyblue; color: white;
-    /*To je jen kvůli barvě hlavního menu pro admina*/
-}
+
 #mainmenu ul{
     margin: 0 auto 0 auto;
     padding: 0;
@@ -37,12 +34,10 @@ body{
     line-height: 50px;
     text-align: center;
 }
-#mainmenu.admin ul li a, #mainmenu.admin ul li ul{
-    background-color: skyblue; color: white;
-}
+
 #mainmenu ul li a:hover{
-    background-color: white; 
-    color: black; 
+    background-color: mediumturquoise; 
+    color: light; 
 }
 
 #mainmenu ul li ul{
@@ -53,7 +48,7 @@ body{
     position: absolute;
 }
 #mainmenu ul li ul li a{
-    box-shadow: 0px 1px 1px black;
+/*    box-shadow: 0px 1px 1px black;*/
 }
 /*CONTENT AND FOOTER*/
 #content{
@@ -78,7 +73,7 @@ body{
 /*FORMS*/
 form p{
     font-weight: bold;
-    color: mediumturquoise;
+    color: black;
 }
 
 /*TABLES*/
@@ -113,6 +108,16 @@ td{
     background-color: white;
 }
 
+/*ADMIN*/
+#mainmenu.admin ul li a, #mainmenu.admin ul li ul, #mainmenu.admin, table.admin th{
+    background-color: chocolate;
+    color: white;
+}
+#mainmenu.admin ul li a:hover, table.admin tr:hover{
+    background-color: orange; 
+    color: white; 
+}
+
 /*RESPONSIVE*/
 @media (max-width : 1000px)
 {
@@ -137,16 +142,17 @@ td{
  }
  #mainmenu ul li ul{
      visibility: hidden;
-     opacity: 0;
  }
  #mainmenu ul li:hover ul{
      display: block;
      visibility: visible;
-     background-color: lightseagreen;
-     transition-delay: 2s;
-     transition-duration: 2s;
-     opacity: 1;
+     background-color: darkcyan;
  }
+ 
+ #mainmenu ul li:hover ul li a{
+    background-color: darkcyan;
+ }
+ 
  #mainmenu ul li ul li a, #mainmenu ul li ul a:hover{
      background-color: silver;
  }

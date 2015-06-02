@@ -77,6 +77,7 @@ public class UzivatelBean{
                     + ");";
             if(stm.execute(sql));
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Úspěšně registrován"));
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Vyčkejte na potvrzení adminem"));
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -91,13 +92,15 @@ public class UzivatelBean{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
             String sql = "UPDATE Uzivatel SET "
-                    + " Email = '" + uzivatel.getEmail() + "'"
+                    + "IDFunkce = '" + uzivatel.getIDFunkce() + "'"
+                    + " , Email = '" + uzivatel.getEmail() + "'"
                     + " , Heslo = '" + uzivatel.getHeslo() + "'"
                     + " , Jmeno = '" + uzivatel.getJmeno() + "'"
                     + " , Prijmeni = '" + uzivatel.getPrijmeni() + "'"
                     + " , Telefon = '" + uzivatel.getTelefon() + "'"
                     + " , DatumNarozeni = '" + uzivatel.getDatumNarozeni().toInstant() + "'"
                     + " , PosledniLog = '" + uzivatel.getPosledniLog().toInstant().plus(Duration.ofHours(2)) + "'"
+                    + " , Potvrzen = '" + (uzivatel.isPotvrzen() ? 1 : 0) + "'"
                     + " WHERE IDUzivatel = " + uzivatel.getIDUzivatel() + ";";
             stm.execute(sql);
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Změny uloženy"));
@@ -109,6 +112,22 @@ public class UzivatelBean{
         } 
     }
     
+    public void deleteUzivatel(UzivatelDao uzivatel){
+        try{
+            Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
+            Statement stm = conn.createStatement();
+            String sql = "DELETE Uzivatel"
+                    + " WHERE IDUzivatel = "
+                    + uzivatel.getIDUzivatel()
+                    + ";";
+            stm.execute(sql);
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Uživatel smazán"));
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }  
+    }
+    
     public void loadLoggedUser(){
         this.uzivatel = (UzivatelDao) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
     }
@@ -117,7 +136,6 @@ public class UzivatelBean{
     public void noUzivatelRedirectReport(){
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("uzivatele.xhtml");
-            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Nebyl vybrán žádný uživatel!"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

@@ -63,12 +63,12 @@
                 <h:button outcome="addjidlo" value="Přidat jídlo do systému" />
             </p>
             <h:form>
-                <!-- Vteřinu po dopsání se vyhledá :3 -->
+                <!-- 2 vteřiny po dopsání se vyhledá :3 -->
                 <h:panelGrid id="panel" class="form" columns="3" border="0" cellpadding="10" cellspacing="5">
                     <h:outputLabel value="Filtrovat jídla dle slova v názvu" />
                     <h:inputText id="filtr" onblur="submit()" autocomplete="true" onclick="this.value='';" 
                                  value="#{jidloBean.filtrText}" required="false" valueChangeListener="#{jidloBean.filtrTextChanged}"
-                                 onkeyup="setTimeout(function(){submit();}, 1000);" /> 
+                                 onkeyup="setTimeout(function(){submit();}, 2000);" /> 
                     <h:button onclick="clear();" value="Vyčistit" />
                 </h:panelGrid>
             </h:form>

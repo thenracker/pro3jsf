@@ -31,10 +31,6 @@
                 </li>
                 <li>
                     <a href="uzivatele.xhtml">Uživatelé</a>
-                    <ul>
-                        <li><a href="uzivatele.xhtml">Správa uživatelů</a></li>
-                        <li><a href="edituzivatel.xhtml">Upravit uživatele</a></li>
-                    </ul>
                 </li>
                 <li>
                     <a href="user.xhtml">Profil</a>
@@ -55,16 +51,16 @@
             </script>
             
             <h:form>
-                <!-- Vteřinu po dopsání se vyhledá :3 -->
+                <!-- 2 vteřiny po dopsání se vyhledá :3 -->
                 <h:panelGrid id="panel" class="form" columns="3" border="0" cellpadding="10" cellspacing="5">
                     <h:outputLabel value="Filtrovat jídla dle slova v názvu" />
-                    <h:inputText id="filtr" onblur="submit()" autocomplete="true" onclick="this.value='';" 
+                    <h:inputText id="filtr" onblur="submit()" autocomplete="true" 
                                  value="#{jidloBean.filtrText}" required="false" valueChangeListener="#{jidloBean.filtrTextChanged}"
-                                 onkeyup="setTimeout(function(){submit();}, 1000);" /> 
+                                 onkeyup="setTimeout(function(){submit();}, 2000);" /> 
                     <h:button onclick="clear();" value="Vyčistit" />
                 </h:panelGrid>
             </h:form>
-            
+
             <script type="text/javascript">
                 setTimeout(function(){
                     document.getElementById('messages').style.color = 'white';
@@ -72,10 +68,10 @@
             </script>
             <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />
             
-            <h:dataTable value="#{jidloBean.allJidla}" var="j">
+            <h:dataTable class="admin" value="#{jidloBean.allJidla}" var="j">
                 <h:column>
-                    <f:facet name="header">Název, Popis</f:facet>
-                    #{j.nazev}<c:if test="${j.popis.length() > 0}">, #{j.popis}</c:if>
+                    <f:facet name="header">Název</f:facet>
+                    #{j.nazev}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Váha (g)</f:facet>

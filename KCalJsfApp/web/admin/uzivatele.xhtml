@@ -30,10 +30,6 @@
                 </li>
                 <li>
                     <a href="uzivatele.xhtml">Uživatelé</a>
-                    <ul>
-                        <li><a href="uzivatele.xhtml">Správa uživatelů</a></li>
-                        <li><a href="edituzivatel.xhtml">Upravit uživatele</a></li>
-                    </ul>
                 </li>
                 <li>
                     <a href="user.xhtml">Profil</a>
@@ -45,8 +41,15 @@
             </ul>
         </div>
         <div id="content">
-            <p>TABULKA UŽIVATELŮ S TLAČÍTKAMA "UPRAVIT", "SMAZAT", "POTVRDIT?"</p>
-            <h:dataTable value="#{uzivatelBean.uzivatele}" var="u">
+            <h1>Tabulka uživatelů</h1>
+            <h2>Zvolte uživatele k úpravě</h2>
+            <script type="text/javascript">
+            setTimeout(function(){
+                document.getElementById('messages').style.color = 'white';
+            },2000);
+            </script>
+            <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />
+            <h:dataTable class="admin" value="#{uzivatelBean.uzivatele}" var="u">
                 <h:column>
                     <f:facet name="header">#</f:facet>
                     #{u.IDUzivatel}
@@ -69,11 +72,15 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Narozen</f:facet>
-                    #{u.datumNarozeni}
+                    <h:outputLabel value="#{u.datumNarozeni}">
+                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                    </h:outputLabel>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Poslední přihl.</f:facet>
-                    #{u.posledniLog}
+                    <h:outputLabel value="#{u.posledniLog}">
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                    </h:outputLabel>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Operace</f:facet>

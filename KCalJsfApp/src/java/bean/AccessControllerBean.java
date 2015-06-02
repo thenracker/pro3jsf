@@ -46,18 +46,22 @@ public class AccessControllerBean {
     
     //permission methods - na začátku každý xhtml
     public void hasUserPermission(){
-        if(uzivatel.getIDFunkce() != 2)try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/KCalJsfApp/faces/error.xhtml");
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        if(uzivatel.getIDFunkce() != 2 || !uzivatel.isPotvrzen()){
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/KCalJsfApp/faces/error.xhtml");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     public void hasAdminPermission(){
-        if(uzivatel.getIDFunkce() != 1)try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/KCalJsfApp/faces/error.xhtml");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } 
+        if(uzivatel.getIDFunkce() != 1){
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/KCalJsfApp/faces/error.xhtml");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
     
     //log methods
@@ -167,4 +171,13 @@ public class AccessControllerBean {
             ex.printStackTrace();
         }
     }
+
+    public UzivatelBean getUb() {
+        return ub;
+    }
+
+    public void setUb(UzivatelBean ub) {
+        this.ub = ub;
+    }
+    
 }
