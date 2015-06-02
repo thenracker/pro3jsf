@@ -14,21 +14,22 @@
     
     </h:head>
     <h:body>
-        <h1>KCal App</h1>
-        <h2>CHYBA</h2>
-        <h3>Přihlašte se prosím do systému</h3>
-        <h:form>
-            <p>
-            <h:messages style="color: red"></h:messages>
-            </p>
-            <p>Email:</p>
-            <h:inputText required="true" value="#{accessController.uzivatel.email}" requiredMessage="Zadejte přihlašovací jméno" />
-            <p>Heslo:</p>
-            <h:inputSecret required="true" value="#{accessController.uzivatel.heslo}" requiredMessage="Zadejte heslo" />
-            <p></p>
-            <h:commandButton value="Odeslat" action="#{accessController.logIn()}" /> #{dbManager}
-
-        </h:form>
+        <div id="content">
+            <h1>KCal App</h1>
+            <h2>CHYBA</h2>
+            <h3>Přihlašte se prosím znovu do systému</h3>
+            <h:form>
+                <p>
+                <h:messages style="color: red"></h:messages>
+                </p>
+                <p>Email:</p>
+                <h:inputText required="true" value="#{accessController.uzivatel.email}" requiredMessage="Zadejte přihlašovací jméno" />
+                <p>Heslo:</p>
+                <h:inputSecret required="true" value="#{accessController.uzivatel.heslo}" requiredMessage="Zadejte heslo" />
+                <p></p>
+                <h:commandButton value="Odeslat" action="#{accessController.logIn()}" />
+            </h:form>
+        </div>
     </h:body>
 </html>
 

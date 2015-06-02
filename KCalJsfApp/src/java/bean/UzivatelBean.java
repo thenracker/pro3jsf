@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,8 +31,8 @@ public class UzivatelBean{
     private UzivatelDao uzivatel;
     
     public UzivatelBean() {
-        uzivatel = (UzivatelDao) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-        if(uzivatel == null)
+//        uzivatel = (UzivatelDao) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+//        if(uzivatel == null)
             uzivatel = new UzivatelDao();
     }
     
@@ -74,7 +75,8 @@ public class UzivatelBean{
                     + "2,'"
                     + new Date().toInstant() + "'"
                     + ");";
-            if(stm.execute(sql))FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Úspěšně registrován"));
+            if(stm.execute(sql));
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Úspěšně registrován"));
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -95,10 +97,11 @@ public class UzivatelBean{
                     + " , Prijmeni = '" + uzivatel.getPrijmeni() + "'"
                     + " , Telefon = '" + uzivatel.getTelefon() + "'"
                     + " , DatumNarozeni = '" + uzivatel.getDatumNarozeni().toInstant() + "'"
-                    + " , PosledniLog = '" + uzivatel.getPosledniLog().toInstant() + "'"
+                    + " , PosledniLog = '" + uzivatel.getPosledniLog().toInstant().plus(Duration.ofHours(2)) + "'"
                     + " WHERE IDUzivatel = " + uzivatel.getIDUzivatel() + ";";
             stm.execute(sql);
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Změny uloženy"));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("editedUser",uzivatel);
         }
         catch(SQLException e){
             e.printStackTrace();

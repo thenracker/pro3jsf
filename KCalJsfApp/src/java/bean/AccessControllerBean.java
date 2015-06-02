@@ -156,11 +156,11 @@ public class AccessControllerBean {
     }
 
     public UzivatelDao getEditedUzivatel() {
-        return editedUzivatel;
+        return (UzivatelDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("editedUser");
     }
 
     public void setEditedUzivatel(UzivatelDao editedUzivatel) {
-        this.editedUzivatel = editedUzivatel;
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("editedUser",editedUzivatel);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("edituzivatel.xhtml");
         } catch (IOException ex) {
