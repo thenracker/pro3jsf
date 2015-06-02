@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,13 @@ public class JidelnicekBean {
         JidloDao j = (JidloDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("jidlo");
         if(j.getIDJidlo() > 0)
             jidelnicek.setIDJidlo(j.getIDJidlo());
+        int h = new Date().getHours();
+        if(h<=9)jidelnicek.setTyp("Snídaně");
+        if(h<=11 && h>9)jidelnicek.setTyp("Dopolední svačina");
+        if(h<=14 && h>11)jidelnicek.setTyp("Oběd");
+        if(h<=17 && h>14)jidelnicek.setTyp("Odpolední svačina");
+        if(h<=20 && h>17)jidelnicek.setTyp("Večeře");
+        if(h>20) jidelnicek.setTyp("Druhá večeře");
     }
     
     public List<JidelnicekDao> selectAllUserJidelnicek(){
@@ -104,6 +112,10 @@ public class JidelnicekBean {
 
     public Date getDatumJidelnicku() {
         return datumJidelnicku;
+    }
+    
+    public String getDatumJidelnickuString(){
+        return (new SimpleDateFormat("yyyy-MM-dd").format(datumJidelnicku));
     }
 
     public void setDatumJidelnicku(Date datumJidelnicku) {

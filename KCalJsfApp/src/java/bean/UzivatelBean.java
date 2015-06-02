@@ -6,6 +6,7 @@
 package bean;
 
 import dao.UzivatelDao;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -103,6 +104,20 @@ public class UzivatelBean{
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Nelze uložit změny"));
         } 
+    }
+    
+    public void loadLoggedUser(){
+        this.uzivatel = (UzivatelDao) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+    }
+    
+    //fce která slouží pro přesměrování, když by se náhodou něco zesralo
+    public void noUzivatelRedirectReport(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("uzivatele.xhtml");
+            FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Nebyl vybrán žádný uživatel!"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public List<UzivatelDao> getUzivatele(){

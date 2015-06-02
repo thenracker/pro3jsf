@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -34,7 +36,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="user.xhtml">Uživatel</a>
+                    <a href="user.xhtml">Profil</a>
                     <ul>
                         <li><a href="logout.xhtml" onclick="confirm('Opravdu se chcete odhlásit?')">Odhlásit se</a></li>
                         <li><a href="user.xhtml">Profil</a></li>
@@ -44,6 +46,43 @@
         </div>
         <div id="content">
             <p>TABULKA UŽIVATELŮ S TLAČÍTKAMA "UPRAVIT", "SMAZAT", "POTVRDIT?"</p>
+            <h:dataTable value="#{uzivatelBean.uzivatele}" var="u">
+                <h:column>
+                    <f:facet name="header">#</f:facet>
+                    #{u.IDUzivatel}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Jméno</f:facet>
+                    #{u.jmeno}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Příjmení</f:facet>
+                    #{u.prijmeni}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    #{u.email}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Heslo</f:facet>
+                    #{u.heslo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Narozen</f:facet>
+                    #{u.datumNarozeni}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Poslední přihl.</f:facet>
+                    #{u.posledniLog}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Operace</f:facet>
+                    <h:form>
+                        <h:commandButton value="Upravit" action="#{accessController.setEditedUzivatel(u)}" />
+                        <h:commandButton value="Smazat" onclick="confirm('Opravdu smazat uživatele?');" action="#{uzivatelBean.deleteUzivatel(u)}" />
+                    </h:form>
+                </h:column>
+            </h:dataTable>
         </div>
     </body>
 </html>

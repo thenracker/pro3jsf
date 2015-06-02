@@ -28,10 +28,12 @@ public class AccessControllerBean {
     private UzivatelBean ub;
     
     private UzivatelDao editedUzivatel;
-    
+
     public AccessControllerBean() {
         uzivatel = new UzivatelDao();
         ub = new UzivatelBean();
+        
+        editedUzivatel = new UzivatelDao();
         
         //POKUD se MS nenačte - načte se POSTGRE  
         getConnectionMS();
@@ -159,5 +161,10 @@ public class AccessControllerBean {
 
     public void setEditedUzivatel(UzivatelDao editedUzivatel) {
         this.editedUzivatel = editedUzivatel;
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("edituzivatel.xhtml");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

@@ -106,7 +106,6 @@
                     <f:facet name="header">Operace</f:facet>
                     <h:form>
                         <h:commandButton value="Přidat do jídelníčku" action="#{accessController.setEditedJidlo(j)}" />
-                        <h:commandButton value="Smazat" onclick="confirm('Opravdu smazat jídlo?');" action="#{jidloBean.deleteJidlo(j)}" />
                     </h:form>
                 </h:column>
           </h:dataTable>

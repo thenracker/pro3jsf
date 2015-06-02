@@ -103,22 +103,17 @@
             
             <script type="text/javascript">
                 function changeDate(){
-                    var el = document.querySelectorAll('[name^=datum]');
-                    
-                    for(var e in el){
-                        e.value = document.getElementById('inputDate').value;
-                    }
                 }
             </script>
             
-            <h:form>
+            <h:form id="dateForm">
                 <h:panelGrid id="panel" class="form" columns="4" border="0" cellpadding="10" cellspacing="1">
                     <h:outputLabel value="Zobrazit jídelníček ze dne:" />
-                    <input id="inputDate" type="date" onchange="changeDate()"  />
-                    <h:inputText value=""  id="datum" required="true" 
-                                 requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.2015)" >
-                        <!--<f:convertDateTime pattern="yyyy-MM-dd" />	-->
-                    </h:inputText>
+                    <input id="inputDate" value="#{jidelnicekBean.getDatumJidelnickuString()}" type="date" onchange="document.getElementById('dateForm:date').value = this.value; submit();"   />
+                    <h:inputHidden value="#{jidelnicekBean.datumJidelnicku}"  id="date" required="true" 
+                                 requiredMessage="Zadejte datum" converterMessage="Špatný formát" >
+                        <f:convertDateTime pattern="yyyy-MM-dd" />	
+                    </h:inputHidden>
                     <h:message for="datum" style="color:red" />
                 </h:panelGrid>
             </h:form> 

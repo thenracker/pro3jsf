@@ -54,10 +54,10 @@
         </div>
         <div id="content">
             <h1>Přidat jídlo do jídelníčku</h1>
-            <h:form>
+            <h:form id="form">
                 <script type="text/javascript">
                 setTimeout(function(){
-                    document.getElementById('j_idt6:messages').style.color = 'white';
+                    document.getElementById('form:messages').style.color = 'white';
                 },2000);
             </script>
             <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />
@@ -87,10 +87,27 @@
                 <p>Poznámka:</p>
                 <h:inputText required="false" value="#{jidelnicekBean.jidelnicek.poznamka}" />
                 
-                <p>Datum:</p>
-                <h:inputText value="#{jidelnicekBean.jidelnicek.cas}"  id="datum" size="20" required="true" requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.2015 12:33)" >
-                    <f:convertDateTime pattern="d.M.yyyy' 'HH:mm" />	
-                </h:inputText>
+                <p>Datum a čas:</p>
+                
+                <h:inputHidden value="#{jidelnicekBean.jidelnicek.cas}"  id="datum" required="true" requiredMessage="Zadejte datum" converterMessage="Špatný formát (např. 25.5.2015 12:33)" >
+                    <f:convertDateTime pattern="yyyy-MM-dd' 'HH:mm" />	
+                </h:inputHidden>
+                
+                <script type="text/javascript">
+                    function fill(){
+                        document.getElementById('form:datum').value = 
+                                document.getElementById('date').value + " " + document.getElementById('hours').value + ":" + document.getElementById('minutes').value;
+                    };
+                </script>
+                
+                <input onchange="fill();" id="date" type="date" value="#{jidelnicekBean.getDatumJidelnickuString()}" />
+                <input min="0" step="1" max="23" onchange="fill();" id="hours" type="number" value="#{jidelnicekBean.datumJidelnicku.hours}" />:
+                <input min="0" step="1" max="59" onchange="fill();" id="minutes" type="number" value="#{jidelnicekBean.datumJidelnicku.minutes}" />
+                
+                
+                <script type="text/javascript">
+                    fill();
+                </script>
                 
                 <p></p>
                 <h:commandButton value="Uložit" action="#{jidelnicekBean.insertJidelnicek()}" />

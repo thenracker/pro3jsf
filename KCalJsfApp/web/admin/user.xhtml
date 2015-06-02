@@ -12,11 +12,13 @@
         <meta name="author" content="PetrAndVlado" />
         <link rel="icon" href="../../favicon.ico" />
         <link href="../../css/style.css" rel="stylesheet" />
-        <title>KCAL APP - Uživatelský profil</title>
+        <title>KCAL APP - Uživatelé</title>
     
     </h:head>
     <h:body>
         #{accessController.hasAdminPermission()}
+        <!-- NAČÍST DO UZIVATELSKE BEANY SPRÁVNÉHO UŽIVATELE -->
+        #{uzivatelBean.loadLoggedUser()}
         <div id="mainmenu" class="admin">
             <ul>
                 <li>
@@ -37,7 +39,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="user.xhtml">Uživatel</a>
+                    <a href="user.xhtml">Profil</a>
                     <ul>
                         <li><a href="logout.xhtml" onclick="confirm('Opravdu se chcete odhlásit?')">Odhlásit se</a></li>
                         <li><a href="user.xhtml">Profil</a></li>
@@ -47,11 +49,10 @@
         </div>
         <div id="content">
             <h1>Uživatelský profil</h1>
-            
-            <h:form>
+            <h:form id="form">
                 <script type="text/javascript">
                 setTimeout(function(){
-                    document.getElementById('j_idt6:messages').style.color = 'white';
+                    document.getElementById('form:messages').style.color = 'white';
                 },2000);
                 </script>
                 <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />

@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -153,7 +151,7 @@ public class JidloBean {
             FacesContext.getCurrentInstance().getExternalContext().redirect("jidla.xhtml");
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Nebylo vybráno žádné jídlo!"));
         } catch (IOException ex) {
-            Logger.getLogger(JidloBean.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     

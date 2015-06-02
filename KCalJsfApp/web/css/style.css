@@ -12,7 +12,7 @@ body{
     font-variant: small-caps;
 }
 #mainmenu.admin{
-    background-color: maroon; color: white;
+    background-color: skyblue; color: white;
     /*To je jen kvůli barvě hlavního menu pro admina*/
 }
 #mainmenu ul{
@@ -38,7 +38,7 @@ body{
     text-align: center;
 }
 #mainmenu.admin ul li a, #mainmenu.admin ul li ul{
-    background-color: maroon; color: white;
+    background-color: skyblue; color: white;
 }
 #mainmenu ul li a:hover{
     background-color: white; 
@@ -117,11 +117,14 @@ td{
 @media (max-width : 1000px)
 {
  #content{
-     margin-top: 20px;
+     margin-top: 220px;
+     width: 95vw;
+ }
+ #footer{
      width: 95vw;
  }
  #mainmenu{
-     height: auto;
+     height: 0;
  }
  #mainmenu ul{
      width: 95vw;
@@ -129,12 +132,20 @@ td{
  #mainmenu ul li a, #mainmenu ul li a:hover{
     list-style-type: none;
     display: block;
-    background-color: black;
+    background-color: lightseagreen;
     width: 95vw;
  }
- #mainmenu ul li ul, #mainmenu ul li ul:hover{
+ #mainmenu ul li ul{
+     visibility: hidden;
+     opacity: 0;
+ }
+ #mainmenu ul li:hover ul{
      display: block;
-     background-color: black;
+     visibility: visible;
+     background-color: lightseagreen;
+     transition-delay: 2s;
+     transition-duration: 2s;
+     opacity: 1;
  }
  #mainmenu ul li ul li a, #mainmenu ul li ul a:hover{
      background-color: silver;
