@@ -62,7 +62,36 @@
                     document.getElementById('messages').style.color = 'white';
                 },2000);
             </script>
-            <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" />    
+            <h:messages style="color: red; display: block; transition-duration: 2s;" id="messages" /> 
+            
+            <!-- Kód níže na výběr datem --> 
+            
+            <script type="text/javascript">
+                function changeDate(){
+                    document.getElementById('dateForm:date').value = document.getElementById('inputDate').value;
+                    document.getElementById('dateForm:dateAccess').value = document.getElementById('inputDate').value;
+                }
+            </script>
+            
+            <h:form id="dateForm">
+                <h:inputHidden value="#{jidelnicekBean.datumJidelnicku}" id="date" required="true" 
+                                 requiredMessage="Zadejte datum" converterMessage="Špatný formát" >
+                    <f:convertDateTime pattern="yyyy-MM-dd" />	
+                </h:inputHidden>
+                <h:inputHidden value="#{accessController.datumJidelnicek}" id="dateAccess" required="true" 
+                                 requiredMessage="Zadejte datum" converterMessage="Špatný formát" >
+                    <f:convertDateTime pattern="yyyy-MM-dd" />	
+                </h:inputHidden>
+                <h:panelGrid id="panel" class="form" columns="4" border="0" cellpadding="10" cellspacing="1">
+                    <h:outputLabel value="Zobrazit jídelníček ze dne:" />
+                    <input id="inputDate" value="#{jidelnicekBean.getDatumJidelnickuString()}" type="date" onchange="changeDate(); submit();"   />
+                    
+                    <h:message for="datum" style="color:red" />
+                </h:panelGrid>
+            </h:form> 
+            
+            <!-- Zde už jen tabulka jídelníčku -->
+            
             <h:dataTable value="#{jidelnicekBean.selectAllUserJidelnicek()}" var="j" >
                 <f:facet name="header">
                     <h:outputText 
@@ -97,26 +126,7 @@
                 </h:column>
             </h:dataTable>
             
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
-                $('[id^="datum"]').val(document.getElementById('inputDate'));
-            </script>
             
-            <script type="text/javascript">
-                function changeDate(){
-                }
-            </script>
-            
-            <h:form id="dateForm">
-                <h:panelGrid id="panel" class="form" columns="4" border="0" cellpadding="10" cellspacing="1">
-                    <h:outputLabel value="Zobrazit jídelníček ze dne:" />
-                    <input id="inputDate" value="#{jidelnicekBean.getDatumJidelnickuString()}" type="date" onchange="document.getElementById('dateForm:date').value = this.value; submit();"   />
-                    <h:inputHidden value="#{jidelnicekBean.datumJidelnicku}"  id="date" required="true" 
-                                 requiredMessage="Zadejte datum" converterMessage="Špatný formát" >
-                        <f:convertDateTime pattern="yyyy-MM-dd" />	
-                    </h:inputHidden>
-                    <h:message for="datum" style="color:red" />
-                </h:panelGrid>
-            </h:form> 
             <div id="footer">
                 <p>© 2015 PetrWeissar, VladimirTichy - All Rights Reserved.</p>
             </div>

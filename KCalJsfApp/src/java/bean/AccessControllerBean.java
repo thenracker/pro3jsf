@@ -10,6 +10,7 @@ import dao.UzivatelDao;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -27,13 +28,10 @@ public class AccessControllerBean {
     private UzivatelDao uzivatel;
     private UzivatelBean ub;
     
-    private UzivatelDao editedUzivatel;
 
     public AccessControllerBean() {
         uzivatel = new UzivatelDao();
         ub = new UzivatelBean();
-        
-        editedUzivatel = new UzivatelDao();
         
         //POKUD se MS nenačte - načte se POSTGRE  
         getConnectionMS();
@@ -42,6 +40,7 @@ public class AccessControllerBean {
         
         //Pro pozdější práci s jídly
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("jidlo",new JidloDao());
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("datum",new Date());
     }
     
     //permission methods - na začátku každý xhtml
@@ -131,10 +130,12 @@ public class AccessControllerBean {
     }
 
     public UzivatelDao getUzivatel() {
+        //return (UzivatelDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
         return uzivatel;
     }
 
     public void setUzivatel(UzivatelDao uzivatel) {
+        //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user",uzivatel);
         this.uzivatel = uzivatel;
     }
 
@@ -179,5 +180,21 @@ public class AccessControllerBean {
     public void setUb(UzivatelBean ub) {
         this.ub = ub;
     }
+
+    public Date getDatumJidelnicek() {
+        return (Date)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("datum");
+    }
     
+    public String getDatumJidelnickuString(){
+        return (new SimpleDateFormat("yyyy-MM-dd").format((Date)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("datum")));
+    }
+    
+    public void setDatumJidelnicek(Date datumJidelnicek) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("datum",datumJidelnicek);
+    }
+    
+    public void upToDateUzivatel(){
+        ub.loadLoggedUser();
+        uzivatel = ub.getUzivatel();
+    }
 }

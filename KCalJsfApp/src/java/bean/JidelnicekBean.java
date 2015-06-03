@@ -33,7 +33,7 @@ public class JidelnicekBean {
     public JidelnicekBean() {
         jidelnicek = new JidelnicekDao();
         jidelnicek.setCas(new Date());
-        datumJidelnicku = new Date();
+        datumJidelnicku = (Date)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("datum");
         
         JidloDao j = (JidloDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("jidlo");
         if(j.getIDJidlo() > 0)
@@ -49,7 +49,6 @@ public class JidelnicekBean {
     
     public List<JidelnicekDao> selectAllUserJidelnicek(){
         List<JidelnicekDao> jidelnicek = new ArrayList<JidelnicekDao>();
-        
         try{
             Connection conn = (Connection) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("conn");
             Statement stm = conn.createStatement();
@@ -120,7 +119,7 @@ public class JidelnicekBean {
     public String getDatumJidelnickuString(){
         return (new SimpleDateFormat("yyyy-MM-dd").format(datumJidelnicku));
     }
-
+    
     public void setDatumJidelnicku(Date datumJidelnicku) {
         this.datumJidelnicku = datumJidelnicku;
     }

@@ -6,9 +6,12 @@
 package bean;
 
 import dao.JidelnicekDao;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -24,6 +27,9 @@ public class PrehledBean {
        
     
     public PrehledBean() {
+        sumaBilk = 0; sumaSach = 0; sumaCukr = 0; sumaTuky = 0; sumaKcal = 0;
+        sumaSnid = 0; sumaDopo = 0; sumaObed = 0; sumaOdpo = 0; sumaVec1 = 0; sumaVec2 = 0;
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("datum",new Date());
     }
     
     public void loadValues(ArrayList<JidelnicekDao> jidla){
@@ -43,6 +49,16 @@ public class PrehledBean {
         sumaKcal += j.getJidloDao().getKcal();
         }
         
+    }
+    
+    public Date getDatum(){
+        return (Date) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("datum");
+    }
+    public String getDatumString(){
+        return (new SimpleDateFormat("yyyy-MM-dd").format((Date)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("datum")));
+    }
+    public void setDatum(Date datum){
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("datum",datum);
     }
 
     public String getSumaBilkKcal() {

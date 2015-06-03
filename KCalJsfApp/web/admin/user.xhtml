@@ -16,7 +16,9 @@
     
     </h:head>
     <h:body>
+        #{accessController.upToDateUzivatel()}
         #{accessController.hasAdminPermission()}
+        
         <!-- NAČÍST DO UZIVATELSKE BEANY SPRÁVNÉHO UŽIVATELE -->
         <div id="mainmenu" class="admin">
             <ul>

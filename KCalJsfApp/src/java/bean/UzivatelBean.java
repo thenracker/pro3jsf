@@ -105,6 +105,9 @@ public class UzivatelBean{
                     + " WHERE IDUzivatel = " + uzivatel.getIDUzivatel() + ";";
             stm.execute(sql);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("editedUser",uzivatel);
+            if(uzivatel.getIDUzivatel() == ((UzivatelDao)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user")).getIDUzivatel()){
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user",uzivatel);
+            }
             FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Změny uloženy"));
         }
         catch(SQLException e){
